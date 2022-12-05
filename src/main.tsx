@@ -1,10 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./style.css";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import './style.css';
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const container = document.getElementById('root');
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(container!);
+root.render(<App />);
