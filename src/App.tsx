@@ -1,49 +1,59 @@
-import { useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
-import reactLogo from './assets/react.svg';
-import './App.css';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import MenuIcon from '@mui/icons-material/Menu';
+import CssBaseline from '@mui/material/CssBaseline';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import React from 'react';
+import { message, open } from '@tauri-apps/api/dialog';
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState('');
-  const [name, setName] = useState('');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke('greet', { name }));
-  }
+  const theme = React.useMemo(
+    () => createTheme({
+      palette: {
+        mode: prefersDarkMode ? 'dark' : 'light',
+      },
+    }),
+    [prefersDarkMode],
+  );
+
+  const openDir = async () => {
+    const selected = await open({
+      directory: true,
+      recursive: true,
+    });
+
+    if (selected) {
+      await message(Array.isArray(selected) ? selected[0] : selected);
+    }
+  };
 
   return (
-    <div className="container">
-      <h1>Welcome to Tauri!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank" rel="noreferrer">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <div className="row">
-        <div>
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
-          />
-          <button type="button" onClick={() => greet()}>
-            Greet
-          </button>
-        </div>
-      </div>
-      <p>{greetMsg}</p>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <SpeedDial
+        ariaLabel="Menu"
+        direction="down"
+        icon={<SpeedDialIcon icon={<MenuIcon />} openIcon={<KeyboardArrowDownIcon />} />}
+        FabProps={{ size: 'medium' }}
+        sx={{
+          position: 'absolute',
+          top: (thm) => thm.spacing(2),
+          left: (thm) => thm.spacing(2),
+        }}
+      >
+        <SpeedDialAction
+          icon={<FolderOpenIcon />}
+          tooltipTitle="Open"
+          onClick={openDir}
+        />
+      </SpeedDial>
+    </ThemeProvider>
   );
 }
 
