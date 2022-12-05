@@ -17,6 +17,7 @@ type Mode = typeof modes[number];
 
 function App() {
   const [mode, setMode] = React.useState<Mode>('DIR');
+  const [dir, setDir] = React.useState('');
   const [files, setFiles] = React.useState<string[]>([]);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
@@ -36,9 +37,10 @@ function App() {
     });
 
     if (selected) {
-      const dir = Array.isArray(selected) ? selected[0] : selected;
-      const f = await invoke<string[]>('read_images', { dir });
+      const d = Array.isArray(selected) ? selected[0] : selected;
+      const f = await invoke<string[]>('read_images', { dir: d });
 
+      setDir(btoa(d));
       setFiles(f);
       setMode('DIR');
     }
@@ -65,7 +67,7 @@ function App() {
             onClick={openDir}
           />
         </SpeedDial>
-        {mode === 'DIR' && <ImageViewer images={files} />}
+        {mode === 'DIR' && <ImageViewer dir={dir} images={files} />}
       </React.StrictMode>
     </ThemeProvider>
   );
