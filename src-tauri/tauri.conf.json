@@ -60,6 +60,7 @@
         "height": 600,
         "resizable": true,
         "title": "Mangar",
+        "visible": false,
         "width": 800
       }
     ]
