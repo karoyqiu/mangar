@@ -1,6 +1,7 @@
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
+import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
@@ -67,7 +68,9 @@ function App() {
             onClick={openDir}
           />
         </SpeedDial>
-        {mode === 'DIR' && <ImageViewer dir={dir} images={files} />}
+        <Box width="100vw" height="100vh" overflow="auto">
+          {mode === 'DIR' && <ImageViewer dir={dir} images={files} />}
+        </Box>
       </React.StrictMode>
     </ThemeProvider>
   );
