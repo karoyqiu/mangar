@@ -13,6 +13,7 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { fromByteArray } from 'base64-js';
 import React from 'react';
+import RestoreIcon from '@mui/icons-material/Restore';
 import ImageViewer from './ImageViewer';
 
 const modes = ['DIR', 'PDF'] as const;
@@ -23,6 +24,7 @@ function App() {
   const [dir, setDir] = React.useState('');
   const [files, setFiles] = React.useState<string[]>([]);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const box = React.useRef<HTMLDivElement>();
 
   const theme = React.useMemo(
     () => createTheme({
@@ -33,28 +35,44 @@ function App() {
     [prefersDarkMode],
   );
 
+  const setDirectory = React.useCallback(async (d: string) => {
+    const f = await invoke<string[]>('read_images', { dir: d });
+    localStorage.setItem('dir', d);
+
+    const encoder = new TextEncoder();
+    const utf8 = encoder.encode(d);
+    const s = fromByteArray(utf8);
+    setDir(s);
+    setFiles(f);
+    setMode('DIR');
+  }, []);
+
   const openDir = React.useCallback(async () => {
-    const selected = await open({
-      directory: true,
-      recursive: true,
-    });
+    const selected = await open({ directory: true });
 
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
-      const f = await invoke<string[]>('read_images', { dir: d });
+      await setDirectory(d);
+    }
+  }, []);
 
-      const encoder = new TextEncoder();
-      const utf8 = encoder.encode(d);
+  const restore = React.useCallback(async () => {
+    const d = localStorage.getItem('dir');
 
-      setDir(fromByteArray(utf8));
-      setFiles(f);
-      setMode('DIR');
+    if (d) {
+      await setDirectory(d);
+      const pos = parseInt(localStorage.getItem('pos') ?? '0', 10);
+
+      // 给点加载时间
+      setTimeout(() => box.current?.scrollTo(0, pos), pos / 50);
     }
   }, []);
 
   const clear = React.useCallback(() => {
     setFiles([]);
     setDir('');
+    localStorage.removeItem('dir');
+    localStorage.removeItem('pos');
   }, []);
 
   return (
@@ -78,12 +96,25 @@ function App() {
             onClick={openDir}
           />
           <SpeedDialAction
+            icon={<RestoreIcon />}
+            tooltipTitle="Restore last session"
+            onClick={restore}
+          />
+          <SpeedDialAction
             icon={<ClearIcon />}
             tooltipTitle="Clear"
             onClick={clear}
           />
         </SpeedDial>
-        <Box width="100vw" height="100vh" overflow="auto">
+        <Box
+          width="100vw"
+          height="100vh"
+          overflow="auto"
+          ref={box}
+          // @ts-ignore 应该是存在 scrollTop 属性的
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          onScroll={(e) => localStorage.setItem('pos', `${e.target.scrollTop}`)}
+        >
           {mode === 'DIR' && <ImageViewer dir={dir} images={files} />}
         </Box>
       </React.StrictMode>
