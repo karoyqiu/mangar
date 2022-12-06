@@ -5,14 +5,14 @@ import '@fontsource/roboto/700.css';
 import { appWindow } from '@tauri-apps/api/window';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import windowHeight from './entities/windowHeight';
+import windowSize from './entities/windowSize';
 import './style.css';
 
 const watchHeight = async () => {
   const size = await appWindow.innerSize();
-  windowHeight.set(size.height);
+  windowSize.set(size);
 
-  await appWindow.onResized((event) => windowHeight.set(event.payload.height));
+  await appWindow.onResized((event) => windowSize.set(event.payload));
 };
 
 watchHeight().catch(() => { });
