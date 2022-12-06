@@ -2,7 +2,19 @@ import React from 'react';
 import AutoResizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
 import { useEntity } from 'simpler-state';
+import { fromByteArray } from 'base64-js';
 import windowSize from './entities/windowSize';
+
+const encoder = new TextEncoder();
+
+const encodeFilename = (dir: string, filename: string) => {
+  const utf8 = encoder.encode(`${dir}/${filename}`);
+  return fromByteArray(utf8);
+};
+
+const imageUrl = (dir: string, filename: string) => (
+  `https://img.localhost/${encodeFilename(dir, filename)}`
+);
 
 type ImageViewerProps = {
   dir: string;
@@ -22,7 +34,7 @@ export default function ImageViewer(props: ImageViewerProps) {
       setRatio(img.naturalHeight / img.naturalWidth);
       ref.current?.scrollTo(pos);
     };
-    img.src = `https://imgaaa.localhost/${dir}/${images[0]}`;
+    img.src = imageUrl(dir, images[0]);
   }, [dir, images[0], pos]);
 
   return (
@@ -37,10 +49,10 @@ export default function ImageViewer(props: ImageViewerProps) {
           overscanCount={3}
           onScroll={({ scrollOffset }) => localStorage.setItem('pos', `${scrollOffset}`)}
         >
-          {({ style, index }) => (
+          {({ index, style }) => (
             <img
               style={style}
-              src={`https://imgaaa.localhost/${dir}/${images[index]}`}
+              src={imageUrl(dir, images[index])}
               alt=""
               width="100%"
             />
