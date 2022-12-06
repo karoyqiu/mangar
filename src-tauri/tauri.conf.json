@@ -11,7 +11,9 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "dialog": {
+        "open": true
+      }
     },
     "bundle": {
       "active": true,
@@ -28,7 +30,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.gmail.karoyqiu.mangar",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -57,7 +59,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "mangar",
+        "title": "Mangar",
         "width": 800
       }
     ]

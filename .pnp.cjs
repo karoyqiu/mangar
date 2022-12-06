@@ -31,7 +31,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:11.10.5"],\
             ["@emotion/styled", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:11.10.5"],\
             ["@fontsource/roboto", "npm:4.5.8"],\
-            ["@fontsource/roboto-mono", "npm:4.5.8"],\
             ["@mui/icons-material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.16"],\
             ["@mui/material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.16"],\
             ["@tauri-apps/api", "npm:1.2.0"],\
@@ -763,15 +762,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@fontsource-roboto-npm-4.5.8-4299bebd5b-460b6de2c9.zip/node_modules/@fontsource/roboto/",\
           "packageDependencies": [\
             ["@fontsource/roboto", "npm:4.5.8"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@fontsource/roboto-mono", [\
-        ["npm:4.5.8", {\
-          "packageLocation": "./.yarn/cache/@fontsource-roboto-mono-npm-4.5.8-d2377505cc-0912b468ae.zip/node_modules/@fontsource/roboto-mono/",\
-          "packageDependencies": [\
-            ["@fontsource/roboto-mono", "npm:4.5.8"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4098,7 +4088,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:11.10.5"],\
             ["@emotion/styled", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:11.10.5"],\
             ["@fontsource/roboto", "npm:4.5.8"],\
-            ["@fontsource/roboto-mono", "npm:4.5.8"],\
             ["@mui/icons-material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.16"],\
             ["@mui/material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.16"],\
             ["@tauri-apps/api", "npm:1.2.0"],\
