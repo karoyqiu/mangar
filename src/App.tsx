@@ -1,3 +1,4 @@
+import ClearIcon from '@mui/icons-material/Clear';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -31,7 +32,7 @@ function App() {
     [prefersDarkMode],
   );
 
-  const openDir = async () => {
+  const openDir = React.useCallback(async () => {
     const selected = await open({
       directory: true,
       recursive: true,
@@ -45,7 +46,12 @@ function App() {
       setFiles(f);
       setMode('DIR');
     }
-  };
+  }, []);
+
+  const clear = React.useCallback(() => {
+    setFiles([]);
+    setDir('');
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,6 +72,11 @@ function App() {
             icon={<FolderOpenIcon />}
             tooltipTitle="Open directory"
             onClick={openDir}
+          />
+          <SpeedDialAction
+            icon={<ClearIcon />}
+            tooltipTitle="Clear"
+            onClick={clear}
           />
         </SpeedDial>
         <Box width="100vw" height="100vh" overflow="auto">
