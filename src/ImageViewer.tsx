@@ -1,5 +1,7 @@
 import React from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { useEntity } from 'simpler-state';
+import windowHeight from './entities/windowHeight';
 
 type ImageViewerProps = {
   dir: string;
@@ -8,6 +10,7 @@ type ImageViewerProps = {
 
 export default function ImageViewer(props: ImageViewerProps) {
   const { dir, images } = props;
+  const wHeight = useEntity(windowHeight);
 
   const renderImage = React.useCallback((index: number) => (
     <img
@@ -22,7 +25,7 @@ export default function ImageViewer(props: ImageViewerProps) {
       width="100%"
       totalCount={images.length}
       itemContent={renderImage}
-      overscan={1024}
+      overscan={wHeight * 2}
     />
   );
 }
