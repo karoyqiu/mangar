@@ -11,6 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
+import { fromByteArray } from 'base64-js';
 import React from 'react';
 import ImageViewer from './ImageViewer';
 
@@ -42,7 +43,10 @@ function App() {
       const d = Array.isArray(selected) ? selected[0] : selected;
       const f = await invoke<string[]>('read_images', { dir: d });
 
-      setDir(btoa(d));
+      const encoder = new TextEncoder();
+      const utf8 = encoder.encode(d);
+
+      setDir(fromByteArray(utf8));
       setFiles(f);
       setMode('DIR');
     }
