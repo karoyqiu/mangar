@@ -12,7 +12,14 @@ import App from './App';
 import windowHeight from './entities/windowHeight';
 import './style.css';
 
-appWindow.onResized((event) => windowHeight.set(event.payload.height)).catch(() => { });
+const watchHeight = async () => {
+  const size = await appWindow.innerSize();
+  windowHeight.set(size.height);
+
+  await appWindow.onResized((event) => windowHeight.set(event.payload.height));
+};
+
+watchHeight().catch(() => { });
 
 const container = document.getElementById('root');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
