@@ -6,9 +6,13 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { appWindow } from '@tauri-apps/api/window';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import windowHeight from './entities/windowHeight';
 import './style.css';
+
+appWindow.onResized((event) => windowHeight.set(event.payload.height)).catch(() => { });
 
 const container = document.getElementById('root');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

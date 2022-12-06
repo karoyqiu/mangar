@@ -51,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.6.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:18.2.0"],\
+            ["simpler-state", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
             ["vite", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:3.2.4"]\
           ],\
@@ -4117,6 +4118,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.6.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:18.2.0"],\
+            ["simpler-state", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
             ["vite", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:3.2.4"]\
           ],\
@@ -4987,6 +4989,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/signal-exit-npm-3.0.7-bd270458a3-a2f098f247.zip/node_modules/signal-exit/",\
           "packageDependencies": [\
             ["signal-exit", "npm:3.0.7"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["simpler-state", [\
+        ["npm:1.2.0", {\
+          "packageLocation": "./.yarn/cache/simpler-state-npm-1.2.0-8265c2a540-835932b478.zip/node_modules/simpler-state/",\
+          "packageDependencies": [\
+            ["simpler-state", "npm:1.2.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0", {\
+          "packageLocation": "./.yarn/__virtual__/simpler-state-virtual-545c14f490/0/cache/simpler-state-npm-1.2.0-8265c2a540-835932b478.zip/node_modules/simpler-state/",\
+          "packageDependencies": [\
+            ["simpler-state", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0"],\
+            ["@babel/runtime", "npm:7.20.6"],\
+            ["@types/react", "npm:18.0.26"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\

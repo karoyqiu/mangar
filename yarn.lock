@@ -285,7 +285,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.20.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.20.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.20.6
   resolution: "@babel/runtime@npm:7.20.6"
   dependencies:
@@ -3250,6 +3250,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    simpler-state: ^1.2.0
     typescript: ^4.9.3
     vite: ^3.2.4
   languageName: unknown
@@ -4025,6 +4026,17 @@ __metadata:
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
+  languageName: node
+  linkType: hard
+
+"simpler-state@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "simpler-state@npm:1.2.0"
+  dependencies:
+    "@babel/runtime": ^7.13.10
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 835932b4789aade33793245ae1690dc88be76303d3ae0013d5b74c177a3cfdae4200cacd851ab6cba799969b7b3d6b2b2474a8173d707b3f17c2896dc2a275a7
   languageName: node
   linkType: hard
 
