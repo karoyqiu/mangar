@@ -1,4 +1,5 @@
-import Stack from '@mui/material/Stack';
+import React from 'react';
+import { Virtuoso } from 'react-virtuoso';
 
 type ImageViewerProps = {
   dir: string;
@@ -8,17 +9,20 @@ type ImageViewerProps = {
 export default function ImageViewer(props: ImageViewerProps) {
   const { dir, images } = props;
 
+  const renderImage = React.useCallback((index: number) => (
+    <img
+      src={`https://imgaaa.localhost/${dir}/${images[index]}`}
+      alt=""
+      width="100%"
+    />
+  ), [dir, images]);
+
   return (
-    <Stack width="100%" alignItems="center">
-      {images.map((file) => (
-        <img
-          key={file}
-          src={`https://imgaaa.localhost/${dir}/${file}`}
-          alt=""
-          width="100%"
-          loading="lazy"
-        />
-      ))}
-    </Stack>
+    <Virtuoso
+      width="100%"
+      totalCount={images.length}
+      itemContent={renderImage}
+      overscan={1024}
+    />
   );
 }
