@@ -1,8 +1,8 @@
+import { fromByteArray } from 'base64-js';
 import React from 'react';
 import AutoResizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList } from 'react-window';
-import { useEntity } from 'simpler-state';
-import { fromByteArray } from 'base64-js';
+import imageSize from './entities/imageSize';
 import windowSize from './entities/windowSize';
 
 const encoder = new TextEncoder();
@@ -24,14 +24,14 @@ type ImageViewerProps = {
 
 export default function ImageViewer(props: ImageViewerProps) {
   const { dir, images, pos } = props;
-  const [ratio, setRatio] = React.useState(0);
-  const wsize = useEntity(windowSize);
+  const ratio = imageSize.use((value) => value.height / value.width);
+  const windowWidth = windowSize.use((value) => value.width);
   const ref = React.useRef<FixedSizeList>(null);
 
   React.useEffect(() => {
     const img = new Image();
     img.onload = () => {
-      setRatio(img.naturalHeight / img.naturalWidth);
+      imageSize.set({ width: img.naturalWidth, height: img.naturalHeight });
       ref.current?.scrollTo(pos);
     };
     img.src = imageUrl(dir, images[0]);
@@ -45,7 +45,7 @@ export default function ImageViewer(props: ImageViewerProps) {
           width={width}
           height={height}
           itemCount={images.length}
-          itemSize={wsize.width * ratio}
+          itemSize={windowWidth * ratio}
           overscanCount={3}
           onScroll={({ scrollOffset, scrollUpdateWasRequested }) => {
             if (!scrollUpdateWasRequested && images.length > 0) {

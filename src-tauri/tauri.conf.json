@@ -13,6 +13,10 @@
     "allowlist": {
       "dialog": {
         "open": true
+      },
+      "window": {
+        "center": true,
+        "setSize": true
       }
     },
     "bundle": {
