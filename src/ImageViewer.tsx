@@ -35,7 +35,7 @@ export default function ImageViewer(props: ImageViewerProps) {
       ref.current?.scrollTo(pos);
     };
     img.src = imageUrl(dir, images[0]);
-  }, [dir, images[0], pos]);
+  }, [dir, images[0]]);
 
   return (
     <AutoResizer>
@@ -47,7 +47,11 @@ export default function ImageViewer(props: ImageViewerProps) {
           itemCount={images.length}
           itemSize={wsize.width * ratio}
           overscanCount={3}
-          onScroll={({ scrollOffset }) => localStorage.setItem('pos', `${scrollOffset}`)}
+          onScroll={({ scrollOffset, scrollUpdateWasRequested }) => {
+            if (!scrollUpdateWasRequested && images.length > 0) {
+              localStorage.setItem('pos', `${scrollOffset}`);
+            }
+          }}
         >
           {({ index, style }) => (
             <img
