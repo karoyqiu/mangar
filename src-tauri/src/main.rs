@@ -27,7 +27,11 @@ fn read_images(dir: &str) -> Vec<String> {
     for entry in fs::read_dir(&dir).unwrap() {
         let entry = entry.unwrap();
         let path = entry.path();
-        let ext = path.extension().unwrap_or_default().to_str().unwrap_or_default();
+        let ext = path
+            .extension()
+            .unwrap_or_default()
+            .to_str()
+            .unwrap_or_default();
 
         if is_img_extension(&ext) {
             let name = path.file_name();
@@ -54,11 +58,9 @@ fn img_handler<R: tauri::Runtime>(
     let uri = request.uri();
     let mut parts = uri.rsplit('/');
     let filename = parts.next().unwrap();
-    let dir = parts.next().unwrap();
-    let dir = base64::decode(&dir)?;
-    let dir = String::from_utf8(dir)?;
-    let path = Path::new(&dir);
-    let path = path.join(filename);
+    let filename = base64::decode(&filename)?;
+    let filename = String::from_utf8(filename)?;
+    let path = Path::new(&filename);
     let extension = match path.extension() {
         Some(_ex) => _ex.to_string_lossy().to_string(),
         None => return res_not_img,
@@ -80,7 +82,8 @@ fn main() {
     tauri::Builder::default()
         //.invoke_handler(tauri::generate_handler![greet])
         .invoke_handler(tauri::generate_handler![read_images])
-        .register_uri_scheme_protocol("imgaaa", img_handler)
+        .register_uri_scheme_protocol("img", img_handler)
+        .plugin(tauri_plugin_window_state::Builder::default().build())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
