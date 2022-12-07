@@ -58,7 +58,7 @@ fn img_handler<R: tauri::Runtime>(
     let uri = request.uri();
     let mut parts = uri.rsplit('/');
     let filename = parts.next().unwrap();
-    let filename = base64::decode(&filename)?;
+    let filename = base64::decode_config(&filename, base64::URL_SAFE)?;
     let filename = String::from_utf8(filename)?;
     let path = Path::new(&filename);
     let extension = match path.extension() {
