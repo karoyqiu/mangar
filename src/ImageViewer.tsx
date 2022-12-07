@@ -1,15 +1,13 @@
 import { fromByteArray } from 'base64-js';
 import React from 'react';
 import AutoResizer from 'react-virtualized-auto-sizer';
-import { FixedSizeList } from 'react-window';
-import imageSize from './entities/imageSize';
-import windowSize from './entities/windowSize';
+import { VariableSizeList } from 'react-window';
 
 const encoder = new TextEncoder();
 
 const encodeFilename = (dir: string, filename: string) => {
   const utf8 = encoder.encode(`${dir}/${filename}`);
-  return fromByteArray(utf8);
+  return fromByteArray(utf8).replaceAll('+', '-').replaceAll('/', '_');
 };
 
 const imageUrl = (dir: string, filename: string) => (
@@ -22,30 +20,28 @@ type ImageViewerProps = {
   pos: number;
 };
 
+type RowHeights = {
+  [key: number]: number;
+};
+
 export default function ImageViewer(props: ImageViewerProps) {
   const { dir, images, pos } = props;
-  const ratio = imageSize.use((value) => value.height / value.width);
-  const windowWidth = windowSize.use((value) => value.width);
-  const ref = React.useRef<FixedSizeList>(null);
+  const ref = React.useRef<VariableSizeList>(null);
+  const rowHeights = React.useRef<RowHeights>({});
 
   React.useEffect(() => {
-    const img = new Image();
-    img.onload = () => {
-      imageSize.set({ width: img.naturalWidth, height: img.naturalHeight });
-      ref.current?.scrollTo(pos);
-    };
-    img.src = imageUrl(dir, images[0]);
-  }, [dir, images[0]]);
+    ref.current?.scrollTo(pos);
+  }, [ref, pos]);
 
   return (
     <AutoResizer>
       {({ width, height }) => (
-        <FixedSizeList
+        <VariableSizeList
           ref={ref}
           width={width}
           height={height}
           itemCount={images.length}
-          itemSize={windowWidth * ratio}
+          itemSize={(index) => rowHeights.current[index] ?? 0}
           overscanCount={3}
           onScroll={({ scrollOffset, scrollUpdateWasRequested }) => {
             if (!scrollUpdateWasRequested && images.length > 0) {
@@ -59,9 +55,18 @@ export default function ImageViewer(props: ImageViewerProps) {
               src={imageUrl(dir, images[index])}
               alt=""
               width="100%"
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                const ratio = img.naturalHeight / img.naturalWidth;
+                rowHeights.current = {
+                  ...rowHeights.current,
+                  [index]: img.width * ratio,
+                };
+                ref.current?.resetAfterIndex(index);
+              }}
             />
           )}
-        </FixedSizeList>
+        </VariableSizeList>
       )}
     </AutoResizer>
   );
