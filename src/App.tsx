@@ -1,5 +1,6 @@
 import ClearIcon from '@mui/icons-material/Clear';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import RestoreIcon from '@mui/icons-material/Restore';
@@ -11,9 +12,33 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
+import { appWindow, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
-import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import imageSize from './entities/imageSize';
 import ImageViewer from './ImageViewer';
+
+function getScrollbarWidth() {
+  // Creating invisible container
+  const outer = document.createElement('div');
+  outer.style.visibility = 'hidden';
+  outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+  // outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+  document.body.appendChild(outer);
+
+  // Creating inner element and placing it in the container
+  const inner = document.createElement('div');
+  outer.appendChild(inner);
+
+  // Calculating difference between container's full width and the child width
+  const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
+
+  // Removing temporary elements from the DOM
+  outer.parentNode?.removeChild(outer);
+
+  return scrollbarWidth;
+}
+
+const scrollBarWidth = getScrollbarWidth();
 
 const modes = ['DIR', 'PDF'] as const;
 type Mode = typeof modes[number];
@@ -62,6 +87,11 @@ function App() {
     }
   }, []);
 
+  const adjustWidth = React.useCallback(async () => {
+    const { width, height } = imageSize.get();
+    await appWindow.setSize(new PhysicalSize(width + scrollBarWidth, height));
+  }, []);
+
   const clear = React.useCallback(() => {
     setFiles([]);
     setDir('');
@@ -97,7 +127,7 @@ function App() {
           <SpeedDialAction
             icon={<FullscreenIcon />}
             tooltipTitle="Actual width"
-            onClick={restore}
+            onClick={adjustWidth}
           />
           <SpeedDialAction
             icon={<ClearIcon />}
