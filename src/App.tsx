@@ -12,6 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import React from 'react';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import ImageViewer from './ImageViewer';
 
 const modes = ['DIR', 'PDF'] as const;
@@ -91,6 +92,11 @@ function App() {
           <SpeedDialAction
             icon={<RestoreIcon />}
             tooltipTitle="Restore last session"
+            onClick={restore}
+          />
+          <SpeedDialAction
+            icon={<FullscreenIcon />}
+            tooltipTitle="Actual width"
             onClick={restore}
           />
           <SpeedDialAction
