@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
-import { appWindow, PhysicalSize } from '@tauri-apps/api/window';
+import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
 import imageSize from './entities/imageSize';
 import ImageViewer from './ImageViewer';
@@ -87,9 +87,31 @@ function App() {
     }
   }, []);
 
-  const adjustWidth = React.useCallback(async () => {
+  const fullSize = React.useCallback(async () => {
     const { width, height } = imageSize.get();
-    await appWindow.setSize(new PhysicalSize(width + scrollBarWidth, height));
+    const size = new PhysicalSize(width + scrollBarWidth, height);
+    const monitor = await currentMonitor();
+
+    if (monitor) {
+      const factor = 0.9;
+      const maxWidth = Math.floor(monitor.size.width * factor);
+      const maxHeight = Math.floor(monitor.size.height * factor);
+
+      if (size.width > maxWidth) {
+        const ratio = maxWidth / size.width;
+        size.width = maxWidth;
+        size.height = Math.floor(size.height * ratio);
+      }
+
+      if (size.height > maxHeight) {
+        const ratio = maxHeight / size.height;
+        size.height = maxHeight;
+        size.width = Math.floor(size.width * ratio);
+      }
+    }
+
+    await appWindow.setSize(size);
+    await appWindow.center();
   }, []);
 
   const clear = React.useCallback(() => {
@@ -126,8 +148,8 @@ function App() {
           />
           <SpeedDialAction
             icon={<FullscreenIcon />}
-            tooltipTitle="Actual width"
-            onClick={adjustWidth}
+            tooltipTitle="Full size"
+            onClick={fullSize}
           />
           <SpeedDialAction
             icon={<ClearIcon />}

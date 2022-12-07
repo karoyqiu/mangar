@@ -17,7 +17,7 @@ tauri-build = {version = "1.2", features = [] }
 base64 = "0.13.1"
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = {version = "1.2", features = ["dialog-open", "window-set-size"] }
+tauri = {version = "1.2", features = ["dialog-open", "window-center", "window-set-size"] }
 tauri-plugin-window-state = "0.1"
 
 [features]
