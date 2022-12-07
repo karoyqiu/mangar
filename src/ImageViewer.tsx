@@ -2,6 +2,7 @@ import { fromByteArray } from 'base64-js';
 import React from 'react';
 import AutoResizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
+import imageSize from './entities/imageSize';
 
 const encoder = new TextEncoder();
 
@@ -72,6 +73,10 @@ export default function ImageViewer(props: ImageViewerProps) {
                   [index]: img.width * ratio,
                 };
                 ref.current?.resetAfterIndex(index);
+
+                if (index === 0) {
+                  imageSize.set({ width: img.naturalWidth, height: img.naturalHeight });
+                }
               }}
             />
           )}
