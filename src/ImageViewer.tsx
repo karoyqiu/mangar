@@ -29,8 +29,17 @@ export default function ImageViewer(props: ImageViewerProps) {
   const ref = React.useRef<VariableSizeList>(null);
   const rowHeights = React.useRef<RowHeights>({});
 
+  const scrollToPos = () => {
+    ref.current?.scrollToItem(pos, 'start');
+    const current = parseInt(localStorage.getItem('pos') ?? '0', 10);
+
+    if (current !== pos) {
+      setTimeout(scrollToPos, 20);
+    }
+  };
+
   React.useEffect(() => {
-    ref.current?.scrollTo(pos);
+    scrollToPos();
   }, [ref, pos]);
 
   return (
@@ -43,9 +52,9 @@ export default function ImageViewer(props: ImageViewerProps) {
           itemCount={images.length}
           itemSize={(index) => rowHeights.current[index] ?? 0}
           overscanCount={3}
-          onScroll={({ scrollOffset, scrollUpdateWasRequested }) => {
-            if (!scrollUpdateWasRequested && images.length > 0) {
-              localStorage.setItem('pos', `${scrollOffset}`);
+          onItemsRendered={({ visibleStartIndex }) => {
+            if (images.length > 0) {
+              localStorage.setItem('pos', `${visibleStartIndex}`);
             }
           }}
         >

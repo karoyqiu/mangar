@@ -84,8 +84,8 @@ function App() {
     const d = localStorage.getItem('dir');
 
     if (d) {
-      await setDirectory(d);
       const n = parseInt(localStorage.getItem('pos') ?? '0', 10);
+      await setDirectory(d);
       setPos(n);
     }
   }, []);
