@@ -7,12 +7,16 @@
   },
   "package": {
     "productName": "mangar",
-    "version": "0.0.1"
+    "version": "0.0.2"
   },
   "tauri": {
     "allowlist": {
       "dialog": {
         "open": true
+      },
+      "window": {
+        "center": true,
+        "setSize": true
       }
     },
     "bundle": {
@@ -60,6 +64,7 @@
         "height": 600,
         "resizable": true,
         "title": "Mangar",
+        "visible": false,
         "width": 800
       }
     ]
