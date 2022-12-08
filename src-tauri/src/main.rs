@@ -42,6 +42,8 @@ fn read_images(dir: &str) -> Vec<String> {
         }
     }
 
+    files.sort_unstable();
+
     files
 }
 
