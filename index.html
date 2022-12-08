@@ -6,25 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mangar</title>
   <script type="text/javascript">
-    if (window.location.hostname !== 'tauri.localhost') {
-      return;
+    if (window.location.hostname === 'tauri.localhost') {
+      document.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        return false;
+      }, { capture: true });
+
+      document.addEventListener('selectstart', e => {
+        e.preventDefault();
+        return false;
+      }, { capture: true });
     }
-
-    document.addEventListener('contextmenu', e => {
-      e.preventDefault();
-      return false;
-    }, { capture: true });
-
-    document.addEventListener('selectstart', e => {
-      e.preventDefault();
-      return false;
-    }, { capture: true });
   </script>
 </head>
 
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+  <div id="root" />
+  <script type="module" src="/src/main.tsx" />
 </body>
 
 </html>
