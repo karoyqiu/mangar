@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", "npm:18.0.9"],\
             ["@types/react-virtualized-auto-sizer", "npm:1.0.1"],\
             ["@types/react-window", "npm:1.8.5"],\
+            ["@types/store", "npm:2.0.2"],\
             ["@typescript-eslint/eslint-plugin", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@typescript-eslint/parser", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@vitejs/plugin-react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:2.2.0"],\
@@ -56,6 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-virtualized-auto-sizer", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.0.7"],\
             ["react-window", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.8.8"],\
             ["simpler-state", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0"],\
+            ["store", "npm:2.0.12"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
             ["vite", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:3.2.4"]\
           ],\
@@ -1429,6 +1431,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.13-56212b60da-00c0724d54.zip/node_modules/@types/semver/",\
           "packageDependencies": [\
             ["@types/semver", "npm:7.3.13"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/store", [\
+        ["npm:2.0.2", {\
+          "packageLocation": "./.yarn/cache/@types-store-npm-2.0.2-83f0b7e59f-aa548e117f.zip/node_modules/@types/store/",\
+          "packageDependencies": [\
+            ["@types/store", "npm:2.0.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4131,6 +4142,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", "npm:18.0.9"],\
             ["@types/react-virtualized-auto-sizer", "npm:1.0.1"],\
             ["@types/react-window", "npm:1.8.5"],\
+            ["@types/store", "npm:2.0.2"],\
             ["@typescript-eslint/eslint-plugin", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@typescript-eslint/parser", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@vitejs/plugin-react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:2.2.0"],\
@@ -4147,6 +4159,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-virtualized-auto-sizer", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.0.7"],\
             ["react-window", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.8.8"],\
             ["simpler-state", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0"],\
+            ["store", "npm:2.0.12"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
             ["vite", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:3.2.4"]\
           ],\
@@ -5181,6 +5194,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["ssri", "npm:9.0.1"],\
             ["minipass", "npm:3.3.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["store", [\
+        ["npm:2.0.12", {\
+          "packageLocation": "./.yarn/cache/store-npm-2.0.12-bfbc75a5ea-4e0fe69f71.zip/node_modules/store/",\
+          "packageDependencies": [\
+            ["store", "npm:2.0.12"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -22,7 +22,8 @@
     "react-dom": "^18.2.0",
     "react-virtualized-auto-sizer": "^1.0.7",
     "react-window": "^1.8.8",
-    "simpler-state": "^1.2.0"
+    "simpler-state": "^1.2.0",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.1",
@@ -31,6 +32,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
+    "@types/store": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "@vitejs/plugin-react": "^2.2.0",

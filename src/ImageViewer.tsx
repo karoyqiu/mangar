@@ -2,6 +2,7 @@ import { fromByteArray } from 'base64-js';
 import React from 'react';
 import AutoResizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
+import store from 'store';
 import imageSize from './entities/imageSize';
 
 const encoder = new TextEncoder();
@@ -32,7 +33,7 @@ export default function ImageViewer(props: ImageViewerProps) {
 
   const scrollToPos = () => {
     ref.current?.scrollToItem(pos, 'start');
-    const current = parseInt(localStorage.getItem('pos') ?? '0', 10);
+    const current = store.get('pos', 0) as number;
 
     if (current !== pos) {
       setTimeout(scrollToPos, 20);
@@ -55,7 +56,7 @@ export default function ImageViewer(props: ImageViewerProps) {
           overscanCount={3}
           onItemsRendered={({ visibleStartIndex }) => {
             if (images.length > 0) {
-              localStorage.setItem('pos', `${visibleStartIndex}`);
+              store.set('pos', visibleStartIndex);
             }
           }}
         >

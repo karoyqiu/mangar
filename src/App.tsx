@@ -4,6 +4,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
 import RestoreIcon from '@mui/icons-material/Restore';
+import WidthFullIcon from '@mui/icons-material/WidthFull';
 import CssBaseline from '@mui/material/CssBaseline';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
@@ -14,10 +15,10 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
-import WidthFullIcon from '@mui/icons-material/WidthFull';
+import store from 'store';
 import imageSize from './entities/imageSize';
-import ImageViewer from './ImageViewer';
 import windowSize from './entities/windowSize';
+import ImageViewer from './ImageViewer';
 
 function getScrollbarWidth() {
   // Creating invisible container
@@ -64,7 +65,7 @@ function App() {
 
   const setDirectory = React.useCallback(async (d: string) => {
     const f = await invoke<string[]>('read_images', { dir: d });
-    localStorage.setItem('dir', d);
+    store.set('dir', d);
     setDir(d);
     setFiles(f);
     setMode('DIR');
@@ -81,10 +82,10 @@ function App() {
   }, []);
 
   const restore = React.useCallback(async () => {
-    const d = localStorage.getItem('dir');
+    const d = store.get('dir') as string;
 
     if (d) {
-      const n = parseInt(localStorage.getItem('pos') ?? '0', 10);
+      const n = store.get('pos', 0) as number;
       await setDirectory(d);
       setPos(n);
     }
@@ -137,8 +138,8 @@ function App() {
   const clear = React.useCallback(() => {
     setFiles([]);
     setDir('');
-    localStorage.removeItem('dir');
-    localStorage.removeItem('pos');
+    store.remove('dir');
+    store.remove('pos');
   }, []);
 
   return (
