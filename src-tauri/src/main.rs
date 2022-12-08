@@ -4,6 +4,7 @@
 )]
 
 use base64;
+use human_sort;
 use std::fs;
 use std::path::Path;
 use tauri::http;
@@ -42,7 +43,7 @@ fn read_images(dir: &str) -> Vec<String> {
         }
     }
 
-    files.sort_unstable();
+    files.sort_unstable_by(|a, b| human_sort::compare(&a, &b));
 
     files
 }
