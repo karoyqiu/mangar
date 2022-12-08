@@ -29,7 +29,25 @@ type RowHeights = {
 export default function ImageViewer(props: ImageViewerProps) {
   const { dir, images, pos } = props;
   const ref = React.useRef<VariableSizeList>(null);
-  const rowHeights = React.useRef<RowHeights>({});
+
+  const getRowHeight = React.useCallback((index: number) => {
+    const heights = store.get('rowHeights', {}) as RowHeights;
+    return heights[index] ?? 0;
+  }, []);
+
+  const setRowHeight = React.useCallback((index: number, img: HTMLImageElement) => {
+    const ratio = img.naturalHeight / img.naturalWidth;
+    const heights = store.get('rowHeights', {}) as RowHeights;
+    store.set('rowHeights', {
+      ...heights,
+      [index]: img.width * ratio,
+    });
+    ref.current?.resetAfterIndex(index);
+
+    if (index === 0) {
+      imageSize.set({ width: img.naturalWidth, height: img.naturalHeight });
+    }
+  }, []);
 
   const scrollToPos = () => {
     ref.current?.scrollToItem(pos, 'start');
@@ -41,7 +59,7 @@ export default function ImageViewer(props: ImageViewerProps) {
   };
 
   React.useEffect(() => {
-    scrollToPos();
+    setTimeout(scrollToPos, 100);
   }, [ref, pos]);
 
   return (
@@ -52,8 +70,7 @@ export default function ImageViewer(props: ImageViewerProps) {
           width={width}
           height={height}
           itemCount={images.length}
-          itemSize={(index) => rowHeights.current[index] ?? 0}
-          overscanCount={3}
+          itemSize={getRowHeight}
           onItemsRendered={({ visibleStartIndex }) => {
             if (images.length > 0) {
               store.set('pos', visibleStartIndex);
@@ -66,19 +83,7 @@ export default function ImageViewer(props: ImageViewerProps) {
               src={imageUrl(dir, images[index])}
               alt=""
               width="100%"
-              onLoad={(e) => {
-                const img = e.target as HTMLImageElement;
-                const ratio = img.naturalHeight / img.naturalWidth;
-                rowHeights.current = {
-                  ...rowHeights.current,
-                  [index]: img.width * ratio,
-                };
-                ref.current?.resetAfterIndex(index);
-
-                if (index === 0) {
-                  imageSize.set({ width: img.naturalWidth, height: img.naturalHeight });
-                }
-              }}
+              onLoad={(e) => setRowHeight(index, e.target as HTMLImageElement)}
             />
           )}
         </VariableSizeList>

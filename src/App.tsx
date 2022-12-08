@@ -140,6 +140,7 @@ function App() {
     setDir('');
     store.remove('dir');
     store.remove('pos');
+    store.remove('rowHeights');
   }, []);
 
   return (
