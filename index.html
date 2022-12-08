@@ -5,6 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mangar</title>
+  <script type="text/javascript">
+    if (window.location.hostname !== 'tauri.localhost') {
+      return;
+    }
+
+    document.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      return false;
+    }, { capture: true });
+
+    document.addEventListener('selectstart', e => {
+      e.preventDefault();
+      return false;
+    }, { capture: true });
+  </script>
 </head>
 
 <body>
