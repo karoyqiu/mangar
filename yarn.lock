@@ -1057,6 +1057,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/store@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@types/store@npm:2.0.2"
+  checksum: aa548e117f9a1e2b1ff0263f3261ad7066b885ed32c05019832e4cbf91bf09f5f5891cccfb4e001a6cdc87d306b1d6376b20bdf8976dfced38b18db3c9c6fef3
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^5.45.0":
   version: 5.45.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.45.0"
@@ -3257,6 +3264,7 @@ __metadata:
     "@types/react-dom": ^18.0.9
     "@types/react-virtualized-auto-sizer": ^1.0.1
     "@types/react-window": ^1.8.5
+    "@types/store": ^2.0.2
     "@typescript-eslint/eslint-plugin": ^5.45.0
     "@typescript-eslint/parser": ^5.45.0
     "@vitejs/plugin-react": ^2.2.0
@@ -3273,6 +3281,7 @@ __metadata:
     react-virtualized-auto-sizer: ^1.0.7
     react-window: ^1.8.8
     simpler-state: ^1.2.0
+    store: ^2.0.12
     typescript: ^4.9.3
     vite: ^3.2.4
   languageName: unknown
@@ -4154,6 +4163,13 @@ __metadata:
   dependencies:
     minipass: ^3.1.1
   checksum: fb58f5e46b6923ae67b87ad5ef1c5ab6d427a17db0bead84570c2df3cd50b4ceb880ebdba2d60726588272890bae842a744e1ecce5bd2a2a582fccd5068309eb
+  languageName: node
+  linkType: hard
+
+"store@npm:^2.0.12":
+  version: 2.0.12
+  resolution: "store@npm:2.0.12"
+  checksum: 4e0fe69f71dc3c99af1b87e87dcb0c81fc979bd38abbcdf66d5705f1c44e6fd5e043056288efd695926c75419adc356873e6792d9b024085a8db51dbdda899ea
   languageName: node
   linkType: hard
 

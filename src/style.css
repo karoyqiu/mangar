@@ -7,5 +7,11 @@ body,
 }
 
 code {
-  font-family: 'Roboto Mono', 'Consolas', 'Courier New', Courier, monospace;
+  font-family: 'Consolas', 'Courier New', Courier, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #121212;
+  }
 }
