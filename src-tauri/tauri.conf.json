@@ -59,7 +59,7 @@
       }
     },
     "security": {
-      "csp": "default-src 'self'; font-src 'self' data:; style-src 'self' 'unsafe-inline' data:; img-src 'self' asset: https://asset.localhost"
+      "csp": "default-src 'self' asset: https://tauri.localhost https://asset.localhost https://unpkg.com; font-src 'self' data:; style-src 'self' 'unsafe-inline' data:; script-src 'self' blob: https://tauri.localhost https://unpkg.com"
     },
     "updater": {
       "active": false
