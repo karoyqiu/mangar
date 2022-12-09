@@ -16,32 +16,13 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
 import store from 'store';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import imageSize from './entities/imageSize';
 import windowSize from './entities/windowSize';
 import ImageViewer from './ImageViewer';
+import PdfViewer from './PdfViewer';
+import scrollBarWidth from './scrollBarWidth';
 
-function getScrollbarWidth() {
-  // Creating invisible container
-  const outer = document.createElement('div');
-  outer.style.visibility = 'hidden';
-  outer.style.overflow = 'scroll'; // forcing scrollbar to appear
-  // outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
-  document.body.appendChild(outer);
-
-  // Creating inner element and placing it in the container
-  const inner = document.createElement('div');
-  outer.appendChild(inner);
-
-  // Calculating difference between container's full width and the child width
-  const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth);
-
-  // Removing temporary elements from the DOM
-  outer.parentNode?.removeChild(outer);
-
-  return scrollbarWidth;
-}
-
-const scrollBarWidth = getScrollbarWidth();
 const FULL_SIZE_SCALE = 0.9 as const;
 
 const modes = ['DIR', 'PDF'] as const;
@@ -65,10 +46,12 @@ function App() {
 
   const setDirectory = React.useCallback(async (d: string) => {
     const f = await invoke<string[]>('read_images', { dir: d });
+    store.remove('rowHeights');
+    store.set('mode', 'DIR');
     store.set('dir', d);
+    setMode('DIR');
     setDir(d);
     setFiles(f);
-    setMode('DIR');
   }, []);
 
   const openDir = React.useCallback(async () => {
@@ -81,12 +64,47 @@ function App() {
     }
   }, []);
 
+  const setPdf = React.useCallback((d: string) => {
+    store.remove('rowHeights');
+    store.set('mode', 'PDF');
+    store.set('dir', d);
+    setMode('PDF');
+    setDir(d);
+    setFiles([]);
+  }, []);
+
+  const openPdf = React.useCallback(async () => {
+    const selected = await open({
+      filters: [{
+        name: 'PDF files',
+        extensions: ['pdf'],
+      }],
+    });
+
+    if (selected) {
+      const d = Array.isArray(selected) ? selected[0] : selected;
+      store.remove('rowHeights');
+      store.set('mode', 'PDF');
+      store.set('dir', d);
+      setMode('PDF');
+      setDir(d);
+      setFiles([]);
+    }
+  }, []);
+
   const restore = React.useCallback(async () => {
     const d = store.get('dir') as string;
+    const m = store.get('mode', 'DIR') as Mode;
 
     if (d) {
       const n = store.get('pos', 0) as number;
-      await setDirectory(d);
+
+      if (m === 'DIR') {
+        await setDirectory(d);
+      } else {
+        setPdf(d);
+      }
+
       setPos(n);
     }
   }, []);
@@ -160,8 +178,13 @@ function App() {
         >
           <SpeedDialAction
             icon={<FolderOpenIcon />}
-            tooltipTitle="Open directory"
+            tooltipTitle="Open directory for images"
             onClick={openDir}
+          />
+          <SpeedDialAction
+            icon={<PictureAsPdfIcon />}
+            tooltipTitle="Open PDF file"
+            onClick={openPdf}
           />
           <SpeedDialAction
             icon={<RestoreIcon />}
@@ -185,6 +208,7 @@ function App() {
           />
         </SpeedDial>
         {mode === 'DIR' && <ImageViewer dir={dir} images={files} pos={pos} />}
+        {mode === 'PDF' && <PdfViewer file={dir} pos={pos} />}
       </React.StrictMode>
     </ThemeProvider>
   );

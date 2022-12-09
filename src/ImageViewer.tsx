@@ -11,7 +11,7 @@ type ImageViewerProps = {
   pos: number;
 };
 
-type RowHeights = {
+export type RowHeights = {
   [key: number]: number;
 };
 
@@ -50,6 +50,10 @@ export default function ImageViewer(props: ImageViewerProps) {
   React.useEffect(() => {
     setTimeout(scrollToPos, 100);
   }, [ref, pos]);
+
+  if (images.length === 0) {
+    return null;
+  }
 
   return (
     <AutoResizer>
