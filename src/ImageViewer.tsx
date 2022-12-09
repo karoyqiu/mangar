@@ -19,6 +19,21 @@ export default function ImageViewer(props: ImageViewerProps) {
   const { dir, images, pos } = props;
   const ref = React.useRef<VariableSizeList>(null);
 
+  const calcEstimatedHeight = React.useCallback(() => {
+    const heights = Object.values(store.get('rowHeights', {}) as RowHeights);
+
+    if (heights.length === 0) {
+      return 1;
+    }
+
+    const sum = heights.reduce((prev, value) => prev + value, 0);
+    const h = sum / heights.length;
+    console.log('EH', h);
+    return h;
+  }, []);
+
+  const [estimatedHeight, setEstimatedHeight] = React.useState(calcEstimatedHeight);
+
   const getRowHeight = React.useCallback((index: number) => {
     const heights = store.get('rowHeights', {}) as RowHeights;
     return heights[index] || imageSize.get().height;
@@ -29,13 +44,18 @@ export default function ImageViewer(props: ImageViewerProps) {
     const heights = store.get('rowHeights', {}) as RowHeights;
     store.set('rowHeights', {
       ...heights,
-      [index]: img.width * ratio,
+      [index]: Math.floor(img.width * ratio),
     });
-    ref.current?.resetAfterIndex(index);
 
-    if (index === 0) {
+    if (imageSize.get().height <= 1) {
       imageSize.set({ width: img.naturalWidth, height: img.naturalHeight });
+
+      if (Object.keys(heights).length === 0) {
+        setEstimatedHeight(calcEstimatedHeight());
+      }
     }
+
+    ref.current?.resetAfterIndex(index);
   }, []);
 
   const scrollToPos = () => {
@@ -56,7 +76,7 @@ export default function ImageViewer(props: ImageViewerProps) {
   }
 
   return (
-    <AutoResizer>
+    <AutoResizer onResize={() => setEstimatedHeight(calcEstimatedHeight())}>
       {({ width, height }) => (
         <VariableSizeList
           ref={ref}
@@ -64,6 +84,7 @@ export default function ImageViewer(props: ImageViewerProps) {
           height={height}
           itemCount={images.length}
           itemSize={getRowHeight}
+          estimatedItemSize={estimatedHeight}
           onItemsRendered={({ visibleStartIndex }) => {
             if (images.length > 0) {
               store.set('pos', visibleStartIndex);

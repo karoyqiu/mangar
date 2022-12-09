@@ -48,7 +48,6 @@ export default function PdfViewer(props: PdfViewerProps) {
       ...heights,
       [index]: Math.floor(pdf.height),
     });
-    ref.current?.resetAfterIndex(index);
 
     if (imageSize.get().height <= 1) {
       imageSize.set({
@@ -60,6 +59,8 @@ export default function PdfViewer(props: PdfViewerProps) {
         setEstimatedHeight(calcEstimatedHeight());
       }
     }
+
+    ref.current?.resetAfterIndex(index);
   }, []);
 
   const scrollToPos = () => {
