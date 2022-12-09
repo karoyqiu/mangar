@@ -51,10 +51,6 @@ export default function PdfViewer(props: PdfViewerProps) {
     }
   };
 
-  // React.useEffect(() => {
-  //   setTimeout(scrollToPos, 100);
-  // }, [ref, pos]);
-
   if (file.length === 0) {
     return null;
   }
@@ -71,7 +67,7 @@ export default function PdfViewer(props: PdfViewerProps) {
           }}
           onLoadSuccess={({ numPages }) => {
             setPages(numPages);
-            scrollToPos();
+            setTimeout(scrollToPos, 100);
           }}
         >
           <VariableSizeList
