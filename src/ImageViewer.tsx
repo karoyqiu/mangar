@@ -27,9 +27,7 @@ export default function ImageViewer(props: ImageViewerProps) {
     }
 
     const sum = heights.reduce((prev, value) => prev + value, 0);
-    const h = sum / heights.length;
-    console.log('EH', h);
-    return h;
+    return Math.floor(sum / heights.length);
   }, []);
 
   const [estimatedHeight, setEstimatedHeight] = React.useState(calcEstimatedHeight);

@@ -32,7 +32,7 @@ export default function PdfViewer(props: PdfViewerProps) {
     }
 
     const sum = heights.reduce((prev, value) => prev + value, 0);
-    return sum / heights.length;
+    return Math.floor(sum / heights.length);
   }, []);
 
   const [estimatedHeight, setEstimatedHeight] = React.useState(calcEstimatedHeight);
