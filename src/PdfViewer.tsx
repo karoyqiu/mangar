@@ -9,7 +9,9 @@ import imageSize from './entities/imageSize';
 import { RowHeights } from './ImageViewer';
 import scrollBarWidth from './scrollBarWidth';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+if (window.location.hostname !== 'tauri.localhost') {
+  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+}
 
 type PdfViewerProps = {
   file: string;
