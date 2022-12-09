@@ -21,7 +21,7 @@ import imageSize from './entities/imageSize';
 import windowSize from './entities/windowSize';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
-import scrollBarWidth from './scrollBarWidth';
+import scrollBarWidth from './api/scrollBarWidth';
 
 const FULL_SIZE_SCALE = 0.9 as const;
 
@@ -59,6 +59,7 @@ function App() {
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
       store.remove('rowHeights');
+      imageSize.set({ width: 1, height: 1 });
       await setDirectory(d);
       setPos(0);
     }
@@ -83,6 +84,7 @@ function App() {
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
       store.remove('rowHeights');
+      imageSize.set({ width: 1, height: 1 });
       setPdf(d);
     }
   }, []);
