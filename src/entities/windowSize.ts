@@ -1,9 +1,5 @@
 import { entity } from 'simpler-state';
-
-export type Size = {
-  width: number;
-  height: number;
-};
+import { Size } from '../api/size';
 
 const windowSize = entity<Size>({ width: 0, height: 0 });
 
