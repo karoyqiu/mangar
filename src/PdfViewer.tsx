@@ -7,6 +7,7 @@ import { VariableSizeList } from 'react-window';
 import store from 'store';
 import imageSize from './entities/imageSize';
 import { RowHeights } from './ImageViewer';
+import Loading from './Loading';
 import scrollBarWidth from './scrollBarWidth';
 
 if (window.location.hostname !== 'tauri.localhost') {
@@ -23,6 +24,19 @@ export default function PdfViewer(props: PdfViewerProps) {
   const [pages, setPages] = React.useState(0);
   const ref = React.useRef<VariableSizeList>(null);
 
+  const calcEstimatedHeight = React.useCallback(() => {
+    const heights = Object.values(store.get('rowHeights', {}) as RowHeights);
+
+    if (heights.length === 0) {
+      return 1;
+    }
+
+    const sum = heights.reduce((prev, value) => prev + value, 0);
+    return sum / heights.length;
+  }, []);
+
+  const [estimatedHeight, setEstimatedHeight] = React.useState(calcEstimatedHeight);
+
   const getRowHeight = React.useCallback((index: number) => {
     const heights = store.get('rowHeights', {}) as RowHeights;
     return heights[index] || imageSize.get().height;
@@ -32,15 +46,19 @@ export default function PdfViewer(props: PdfViewerProps) {
     const heights = store.get('rowHeights', {}) as RowHeights;
     store.set('rowHeights', {
       ...heights,
-      [index]: pdf.height,
+      [index]: Math.floor(pdf.height),
     });
     ref.current?.resetAfterIndex(index);
 
-    if (index === 0) {
+    if (imageSize.get().height <= 1) {
       imageSize.set({
         width: (pdf.originalWidth * 4) / 3,
         height: (pdf.originalHeight * 4) / 3,
       });
+
+      if (Object.keys(heights).length === 0) {
+        setEstimatedHeight(calcEstimatedHeight());
+      }
     }
   }, []);
 
@@ -58,10 +76,11 @@ export default function PdfViewer(props: PdfViewerProps) {
   }
 
   return (
-    <AutoResizer>
+    <AutoResizer onResize={() => setEstimatedHeight(calcEstimatedHeight())}>
       {({ width, height }) => (
         <Document
           file={convertFileSrc(file)}
+          loading={<Loading />}
           options={{
             cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
             cMapPacked: true,
@@ -78,6 +97,7 @@ export default function PdfViewer(props: PdfViewerProps) {
             height={height}
             itemCount={pages}
             itemSize={getRowHeight}
+            estimatedItemSize={estimatedHeight}
             onItemsRendered={({ visibleStartIndex }) => {
               if (pages > 0) {
                 store.set('pos', visibleStartIndex);

@@ -46,7 +46,6 @@ function App() {
 
   const setDirectory = React.useCallback(async (d: string) => {
     const f = await invoke<string[]>('read_images', { dir: d });
-    store.remove('rowHeights');
     store.set('mode', 'DIR');
     store.set('dir', d);
     setMode('DIR');
@@ -59,13 +58,13 @@ function App() {
 
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
+      store.remove('rowHeights');
       await setDirectory(d);
       setPos(0);
     }
   }, []);
 
   const setPdf = React.useCallback((d: string) => {
-    store.remove('rowHeights');
     store.set('mode', 'PDF');
     store.set('dir', d);
     setMode('PDF');
@@ -84,11 +83,7 @@ function App() {
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
       store.remove('rowHeights');
-      store.set('mode', 'PDF');
-      store.set('dir', d);
-      setMode('PDF');
-      setDir(d);
-      setFiles([]);
+      setPdf(d);
     }
   }, []);
 
