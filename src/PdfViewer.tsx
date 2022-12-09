@@ -8,7 +8,7 @@ import store from 'store';
 import imageSize from './entities/imageSize';
 import { RowHeights } from './ImageViewer';
 import Loading from './Loading';
-import scrollBarWidth from './scrollBarWidth';
+import scrollBarWidth from './api/scrollBarWidth';
 
 if (window.location.hostname !== 'tauri.localhost') {
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;

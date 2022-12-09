@@ -21,7 +21,7 @@ import imageSize from './entities/imageSize';
 import windowSize from './entities/windowSize';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
-import scrollBarWidth from './scrollBarWidth';
+import scrollBarWidth from './api/scrollBarWidth';
 
 const FULL_SIZE_SCALE = 0.9 as const;
 
