@@ -1,20 +1,9 @@
-import { fromByteArray } from 'base64-js';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 import React from 'react';
 import AutoResizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import store from 'store';
 import imageSize from './entities/imageSize';
-
-const encoder = new TextEncoder();
-
-const encodeFilename = (dir: string, filename: string) => {
-  const utf8 = encoder.encode(`${dir}/${filename}`);
-  return fromByteArray(utf8).replaceAll('+', '-').replaceAll('/', '_');
-};
-
-const imageUrl = (dir: string, filename: string) => (
-  `https://img.localhost/${encodeFilename(dir, filename)}`
-);
 
 type ImageViewerProps = {
   dir: string;
@@ -32,7 +21,7 @@ export default function ImageViewer(props: ImageViewerProps) {
 
   const getRowHeight = React.useCallback((index: number) => {
     const heights = store.get('rowHeights', {}) as RowHeights;
-    return heights[index] ?? 0;
+    return heights[index] || imageSize.get().height;
   }, []);
 
   const setRowHeight = React.useCallback((index: number, img: HTMLImageElement) => {
@@ -80,7 +69,7 @@ export default function ImageViewer(props: ImageViewerProps) {
           {({ index, style }) => (
             <img
               style={style}
-              src={imageUrl(dir, images[index])}
+              src={convertFileSrc(`${dir}/${images[index]}`)}
               alt=""
               width="100%"
               onLoad={(e) => setRowHeight(index, e.target as HTMLImageElement)}

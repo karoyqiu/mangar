@@ -1286,7 +1286,6 @@ dependencies = [
 name = "mangar"
 version = "1.0.0"
 dependencies = [
- "base64",
  "human-sort",
  "serde",
  "serde_json",

@@ -17,7 +17,6 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.16",
     "@tauri-apps/api": "^1.2.0",
-    "base64-js": "^1.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-virtualized-auto-sizer": "^1.0.7",
@@ -27,7 +26,6 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.1",
-    "@types/node": "^18.11.10",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@types/react-virtualized-auto-sizer": "^1.0.1",

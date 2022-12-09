@@ -35,7 +35,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.16"],\
             ["@tauri-apps/api", "npm:1.2.0"],\
             ["@tauri-apps/cli", "npm:1.2.1"],\
-            ["@types/node", "npm:18.11.10"],\
             ["@types/react", "npm:18.0.26"],\
             ["@types/react-dom", "npm:18.0.9"],\
             ["@types/react-virtualized-auto-sizer", "npm:1.0.1"],\
@@ -44,7 +43,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@typescript-eslint/parser", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@vitejs/plugin-react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:2.2.0"],\
-            ["base64-js", "npm:1.5.1"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-config-airbnb", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:19.0.4"],\
             ["eslint-config-airbnb-typescript", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:17.0.0"],\
@@ -1328,15 +1326,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@types/node", [\
-        ["npm:18.11.10", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-18.11.10-cca0d46cb2-0f60cb090b.zip/node_modules/@types/node/",\
-          "packageDependencies": [\
-            ["@types/node", "npm:18.11.10"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@types/parse-json", [\
         ["npm:4.0.0", {\
           "packageLocation": "./.yarn/cache/@types-parse-json-npm-4.0.0-298522afa6-fd6bce2b67.zip/node_modules/@types/parse-json/",\
@@ -1942,15 +1931,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/balanced-match-npm-1.0.2-a53c126459-9706c088a2.zip/node_modules/balanced-match/",\
           "packageDependencies": [\
             ["balanced-match", "npm:1.0.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["base64-js", [\
-        ["npm:1.5.1", {\
-          "packageLocation": "./.yarn/cache/base64-js-npm-1.5.1-b2f7275641-669632eb37.zip/node_modules/base64-js/",\
-          "packageDependencies": [\
-            ["base64-js", "npm:1.5.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4137,7 +4117,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.16"],\
             ["@tauri-apps/api", "npm:1.2.0"],\
             ["@tauri-apps/cli", "npm:1.2.1"],\
-            ["@types/node", "npm:18.11.10"],\
             ["@types/react", "npm:18.0.26"],\
             ["@types/react-dom", "npm:18.0.9"],\
             ["@types/react-virtualized-auto-sizer", "npm:1.0.1"],\
@@ -4146,7 +4125,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@typescript-eslint/parser", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.45.0"],\
             ["@vitejs/plugin-react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:2.2.0"],\
-            ["base64-js", "npm:1.5.1"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-config-airbnb", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:19.0.4"],\
             ["eslint-config-airbnb-typescript", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:17.0.0"],\
@@ -5553,7 +5531,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["vite", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:3.2.4"],\
             ["@types/less", null],\
-            ["@types/node", "npm:18.11.10"],\
+            ["@types/node", null],\
             ["@types/sass", null],\
             ["@types/stylus", null],\
             ["@types/sugarss", null],\
