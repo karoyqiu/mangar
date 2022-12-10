@@ -4,6 +4,7 @@ import AutoResizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import store from 'store';
 import useDynamicHeight from './api/useDynamicHeight';
+import { currentPositon } from './entities/position';
 import { Viewer } from './Viewer';
 
 type ImageViewerProps = {
@@ -14,7 +15,6 @@ type ImageViewerProps = {
 
 const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageViewerProps, ref) => {
   const { dir, images, pos } = props;
-  const [currentPos, setCurrentPos] = React.useState(0);
   const listRef = React.useRef<VariableSizeList>(null);
   const {
     estimatedHeight, updateEstimatedHeight, getRowHeight, setRowHeight, scrollTo, scrollToPos,
@@ -32,8 +32,6 @@ const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageView
   });
 
   React.useImperativeHandle(ref, () => ({
-    currentPos,
-    maxPos: images.length,
     scrollTo,
   }));
 
@@ -55,9 +53,10 @@ const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageView
           itemCount={images.length}
           itemSize={getRowHeight}
           estimatedItemSize={estimatedHeight}
+          overscanCount={2}
           onItemsRendered={({ visibleStartIndex }) => {
             if (images.length > 0) {
-              setCurrentPos(visibleStartIndex);
+              currentPositon.set(visibleStartIndex);
               store.set('pos', visibleStartIndex);
             }
           }}

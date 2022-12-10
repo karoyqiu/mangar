@@ -4,9 +4,11 @@ import { PDFPageProxy } from 'react-pdf';
 import { Document, Page, pdfjs } from 'react-pdf/dist/esm/entry.vite';
 import AutoResizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
+import { useEntity } from 'simpler-state';
 import store from 'store';
 import scrollBarWidth from './api/scrollBarWidth';
 import useDynamicHeight from './api/useDynamicHeight';
+import { currentPositon, maximumPosition } from './entities/position';
 import Loading from './Loading';
 import { Viewer } from './Viewer';
 
@@ -21,8 +23,7 @@ type PdfViewerProps = {
 
 const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProps, ref) => {
   const { file, pos } = props;
-  const [pages, setPages] = React.useState(0);
-  const [currentPos, setCurrentPos] = React.useState(0);
+  const pages = useEntity(maximumPosition);
   const listRef = React.useRef<VariableSizeList>(null);
   const {
     estimatedHeight, updateEstimatedHeight, getRowHeight, setRowHeight, scrollTo, scrollToPos,
@@ -37,8 +38,6 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
   });
 
   React.useImperativeHandle(ref, () => ({
-    currentPos,
-    maxPos: pages,
     scrollTo,
   }));
 
@@ -64,7 +63,7 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
             standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts`,
           }}
           onLoadSuccess={({ numPages }) => {
-            setPages(numPages);
+            maximumPosition.set(numPages);
             setTimeout(scrollToPos, 100);
           }}
         >
@@ -75,9 +74,10 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
             itemCount={pages}
             itemSize={getRowHeight}
             estimatedItemSize={estimatedHeight}
+            overscanCount={2}
             onItemsRendered={({ visibleStartIndex }) => {
               if (pages > 0) {
-                setCurrentPos(visibleStartIndex);
+                currentPositon.set(visibleStartIndex);
                 store.set('pos', visibleStartIndex);
               }
             }}

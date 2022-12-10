@@ -1,26 +1,17 @@
 import Chip from '@mui/material/Chip';
-import React from 'react';
-import { Viewer } from './Viewer';
+import { useEntity } from 'simpler-state';
+import { currentPositon, maximumPosition } from './entities/position';
 
-type CurrentPositionProps = {
-  viewerRef: React.RefObject<Viewer>;
-};
+export default function CurrentPosition() {
+  const pos = useEntity(currentPositon);
+  const max = useEntity(maximumPosition);
 
-export default function CurrentPosition(props: CurrentPositionProps) {
-  const { viewerRef } = props;
-  const [, setTick] = React.useState(0);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => setTick((prev) => prev + 1), 250);
-    return () => clearInterval(interval);
-  }, []);
-
-  return viewerRef.current && viewerRef.current?.maxPos > 0 ? (
+  return max > 0 ? (
     <Chip
       size="small"
       color="secondary"
       variant="outlined"
-      label={`${viewerRef.current.currentPos + 1}/${viewerRef.current.maxPos}`}
+      label={`${pos + 1}/${max}`}
       sx={{
         position: 'absolute',
         bottom: (thm) => thm.spacing(1),
