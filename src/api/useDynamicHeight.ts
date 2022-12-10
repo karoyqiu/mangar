@@ -5,7 +5,7 @@ import imageSize from '../entities/imageSize';
 import { RowHeights, Size } from './size';
 
 type UseDynamicHeightProps<T> = {
-  ref: React.RefObject<VariableSizeList>;
+  listRef: React.RefObject<VariableSizeList>;
   pos: number;
   getObjectRowHeight: (obj: T) => number;
   getObjectSize: (obj: T) => Size;
@@ -13,7 +13,7 @@ type UseDynamicHeightProps<T> = {
 
 const useDynamicHeight = <T>(props: UseDynamicHeightProps<T>) => {
   const {
-    ref, pos, getObjectRowHeight, getObjectSize,
+    listRef, pos, getObjectRowHeight, getObjectSize,
   } = props;
 
   const calcEstimatedHeight = React.useCallback(() => {
@@ -52,21 +52,21 @@ const useDynamicHeight = <T>(props: UseDynamicHeightProps<T>) => {
       }
     }
 
-    ref.current?.resetAfterIndex(index);
+    listRef.current?.resetAfterIndex(index);
   }, []);
 
   const scrollTo = React.useCallback((value: number) => {
-    ref.current?.scrollToItem(value, 'start');
+    listRef.current?.scrollToItem(value, 'start');
     const current = store.get('pos', 0) as number;
 
     if (current !== value) {
       setTimeout(() => scrollTo(value), 20);
     }
-  }, [ref]);
+  }, [listRef]);
 
   const scrollToPos = React.useCallback(() => {
     scrollTo(pos);
-  }, [ref, pos]);
+  }, [listRef, pos]);
 
   return {
     estimatedHeight,

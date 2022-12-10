@@ -27,7 +27,7 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
   const {
     estimatedHeight, updateEstimatedHeight, getRowHeight, setRowHeight, scrollTo, scrollToPos,
   } = useDynamicHeight<PDFPageProxy>({
-    ref: listRef,
+    listRef,
     pos,
     getObjectRowHeight: (pdf) => Math.floor(pdf.height),
     getObjectSize: (pdf) => ({

@@ -29,9 +29,10 @@ export default function GotoDialog(props: GotoDialogProps) {
 
   React.useEffect(() => {
     if (open) {
+      setValue((current ?? 0) + 1);
       setTimeout(() => ref.current?.focus(), 20);
     }
-  }, [open]);
+  }, [open, current]);
 
   return (
     <Dialog open={open} onClose={() => onClose()}>

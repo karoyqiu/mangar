@@ -39,7 +39,7 @@ function App() {
   const [pos, setPos] = React.useState(0);
   const [gotoOpen, setGotoOpen] = React.useState(false);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const pdfRef = React.useRef<Viewer>(null);
+  const viewerRef = React.useRef<Viewer>(null);
 
   const theme = React.useMemo(
     () => createTheme({
@@ -229,18 +229,17 @@ function App() {
             accessKey="c"
           />
         </SpeedDial>
-        {mode === 'DIR' && <ImageViewer dir={dir} images={files} pos={pos} />}
-        {mode === 'PDF' && <PdfViewer ref={pdfRef} file={dir} pos={pos} />}
+        {mode === 'DIR' && <ImageViewer ref={viewerRef} dir={dir} images={files} pos={pos} />}
+        {mode === 'PDF' && <PdfViewer ref={viewerRef} file={dir} pos={pos} />}
         <GotoDialog
-          key={pdfRef.current?.currentPos}
           open={gotoOpen}
-          maximum={pdfRef.current?.maxPos}
-          current={pdfRef.current?.currentPos}
+          maximum={viewerRef.current?.maxPos}
+          current={viewerRef.current?.currentPos}
           onClose={(value) => {
             setGotoOpen(false);
 
             if (value) {
-              pdfRef.current?.scrollTo(value);
+              viewerRef.current?.scrollTo(value);
             }
           }}
         />
