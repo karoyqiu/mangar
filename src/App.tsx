@@ -4,7 +4,9 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import RestoreIcon from '@mui/icons-material/Restore';
+import ShortcutIcon from '@mui/icons-material/Shortcut';
 import WidthFullIcon from '@mui/icons-material/WidthFull';
 import CssBaseline from '@mui/material/CssBaseline';
 import SpeedDial from '@mui/material/SpeedDial';
@@ -17,14 +19,13 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
 import store from 'store';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import ShortcutIcon from '@mui/icons-material/Shortcut';
+import scrollBarWidth from './api/scrollBarWidth';
+import CurrentPosition from './CurrentPosition';
 import imageSize from './entities/imageSize';
 import windowSize from './entities/windowSize';
+import GotoDialog from './GotoDialog';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
-import scrollBarWidth from './api/scrollBarWidth';
-import GotoDialog from './GotoDialog';
 import { Viewer } from './Viewer';
 
 const FULL_SIZE_SCALE = 0.9 as const;
@@ -179,8 +180,8 @@ function App() {
           FabProps={{ size: 'medium' }}
           sx={{
             position: 'absolute',
-            top: (thm) => thm.spacing(2),
-            left: (thm) => thm.spacing(2),
+            top: (thm) => thm.spacing(1),
+            left: (thm) => thm.spacing(1),
           }}
         >
           <SpeedDialAction
@@ -243,6 +244,7 @@ function App() {
             }
           }}
         />
+        <CurrentPosition viewerRef={viewerRef} />
       </React.StrictMode>
     </ThemeProvider>
   );
