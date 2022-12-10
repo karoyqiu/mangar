@@ -24,6 +24,7 @@ import windowSize from './entities/windowSize';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
 import scrollBarWidth from './api/scrollBarWidth';
+import GotoDialog from './GotoDialog';
 
 const FULL_SIZE_SCALE = 0.9 as const;
 
@@ -35,6 +36,7 @@ function App() {
   const [dir, setDir] = React.useState('');
   const [files, setFiles] = React.useState<string[]>([]);
   const [pos, setPos] = React.useState(0);
+  const [gotoOpen, setGotoOpen] = React.useState(false);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const theme = React.useMemo(
@@ -92,7 +94,9 @@ function App() {
   }, []);
 
   const goTo = React.useCallback(() => {
-
+    const n = store.get('pos', 0) as number;
+    setPos(n);
+    setGotoOpen(true);
   }, []);
 
   const restore = React.useCallback(async () => {
@@ -202,6 +206,9 @@ function App() {
             tooltipTitle="Go to page"
             onClick={goTo}
             accessKey="g"
+            FabProps={{
+              disabled: dir.length === 0,
+            }}
           />
           <SpeedDialAction
             icon={<WidthFullIcon />}
@@ -224,6 +231,13 @@ function App() {
         </SpeedDial>
         {mode === 'DIR' && <ImageViewer dir={dir} images={files} pos={pos} />}
         {mode === 'PDF' && <PdfViewer file={dir} pos={pos} />}
+        <GotoDialog
+          key={pos}
+          open={gotoOpen}
+          onClose={() => setGotoOpen(false)}
+          maximum={100}
+          current={pos}
+        />
       </React.StrictMode>
     </ThemeProvider>
   );
