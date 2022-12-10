@@ -6,33 +6,32 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
+import { useEntity } from 'simpler-state';
+import { currentPositon, maximumPosition } from './entities/position';
 
 type GotoDialogProps = {
   open: boolean;
   onClose: (value?: number) => void;
-  maximum?: number;
-  current?: number;
 };
 
 export default function GotoDialog(props: GotoDialogProps) {
-  const {
-    open, onClose, maximum, current,
-  } = props;
-  const [value, setValue] = React.useState((current ?? 0) + 1);
+  const { open, onClose } = props;
+  const pos = useEntity(currentPositon);
+  const max = useEntity(maximumPosition);
+  const [value, setValue] = React.useState(pos + 1);
   const ref = React.useRef<HTMLInputElement>();
 
   const isAllowed = React.useCallback((values: NumberFormatValues) => {
     const { floatValue = 0 } = values;
-    const max = maximum ?? Number.MAX_SAFE_INTEGER;
     return floatValue >= 1 && floatValue <= max;
-  }, [maximum]);
+  }, [max]);
 
   React.useEffect(() => {
     if (open) {
-      setValue((current ?? 0) + 1);
+      setValue(pos + 1);
       setTimeout(() => ref.current?.focus(), 20);
     }
-  }, [open, current]);
+  }, [open, pos]);
 
   return (
     <Dialog open={open} onClose={() => onClose()}>
@@ -43,7 +42,7 @@ export default function GotoDialog(props: GotoDialogProps) {
         <NumericFormat
           customInput={TextField}
           inputRef={ref}
-          helperText={maximum && `Maximum page is ${maximum}.`}
+          helperText={`Maximum page is ${max}.`}
           autoFocus
           decimalScale={0}
           isAllowed={isAllowed}

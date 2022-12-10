@@ -234,8 +234,6 @@ function App() {
         {mode === 'PDF' && <PdfViewer ref={viewerRef} file={dir} pos={pos} />}
         <GotoDialog
           open={gotoOpen}
-          maximum={viewerRef.current?.maxPos}
-          current={viewerRef.current?.currentPos}
           onClose={(value) => {
             setGotoOpen(false);
 
@@ -244,7 +242,7 @@ function App() {
             }
           }}
         />
-        <CurrentPosition viewerRef={viewerRef} />
+        <CurrentPosition />
       </React.StrictMode>
     </ThemeProvider>
   );
