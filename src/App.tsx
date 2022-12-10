@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-access-key */
 import ClearIcon from '@mui/icons-material/Clear';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
@@ -17,6 +18,7 @@ import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window'
 import React from 'react';
 import store from 'store';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import ShortcutIcon from '@mui/icons-material/Shortcut';
 import imageSize from './entities/imageSize';
 import windowSize from './entities/windowSize';
 import ImageViewer from './ImageViewer';
@@ -87,6 +89,10 @@ function App() {
       imageSize.set({ width: 1, height: 1 });
       setPdf(d);
     }
+  }, []);
+
+  const goTo = React.useCallback(() => {
+
   }, []);
 
   const restore = React.useCallback(async () => {
@@ -177,31 +183,43 @@ function App() {
             icon={<FolderOpenIcon />}
             tooltipTitle="Open directory for images"
             onClick={openDir}
+            accessKey="d"
           />
           <SpeedDialAction
             icon={<PictureAsPdfIcon />}
             tooltipTitle="Open PDF file"
             onClick={openPdf}
+            accessKey="p"
           />
           <SpeedDialAction
             icon={<RestoreIcon />}
             tooltipTitle="Restore last session"
             onClick={restore}
+            accessKey="r"
+          />
+          <SpeedDialAction
+            icon={<ShortcutIcon />}
+            tooltipTitle="Go to page"
+            onClick={goTo}
+            accessKey="g"
           />
           <SpeedDialAction
             icon={<WidthFullIcon />}
             tooltipTitle="Full width"
             onClick={fullWidth}
+            accessKey="w"
           />
           <SpeedDialAction
             icon={<FullscreenIcon />}
             tooltipTitle="Full size"
             onClick={fullSize}
+            accessKey="f"
           />
           <SpeedDialAction
             icon={<ClearIcon />}
             tooltipTitle="Clear"
             onClick={clear}
+            accessKey="c"
           />
         </SpeedDial>
         {mode === 'DIR' && <ImageViewer dir={dir} images={files} pos={pos} />}
