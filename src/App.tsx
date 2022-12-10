@@ -25,6 +25,7 @@ import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
 import scrollBarWidth from './api/scrollBarWidth';
 import GotoDialog from './GotoDialog';
+import { Viewer } from './Viewer';
 
 const FULL_SIZE_SCALE = 0.9 as const;
 
@@ -38,6 +39,7 @@ function App() {
   const [pos, setPos] = React.useState(0);
   const [gotoOpen, setGotoOpen] = React.useState(false);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const pdfRef = React.useRef<Viewer>(null);
 
   const theme = React.useMemo(
     () => createTheme({
@@ -94,8 +96,6 @@ function App() {
   }, []);
 
   const goTo = React.useCallback(() => {
-    const n = store.get('pos', 0) as number;
-    setPos(n);
     setGotoOpen(true);
   }, []);
 
@@ -230,13 +230,19 @@ function App() {
           />
         </SpeedDial>
         {mode === 'DIR' && <ImageViewer dir={dir} images={files} pos={pos} />}
-        {mode === 'PDF' && <PdfViewer file={dir} pos={pos} />}
+        {mode === 'PDF' && <PdfViewer ref={pdfRef} file={dir} pos={pos} />}
         <GotoDialog
-          key={pos}
+          key={pdfRef.current?.currentPos}
           open={gotoOpen}
-          onClose={() => setGotoOpen(false)}
-          maximum={100}
-          current={pos}
+          maximum={pdfRef.current?.maxPos}
+          current={pdfRef.current?.currentPos}
+          onClose={(value) => {
+            setGotoOpen(false);
+
+            if (value) {
+              pdfRef.current?.scrollTo(value);
+            }
+          }}
         />
       </React.StrictMode>
     </ThemeProvider>

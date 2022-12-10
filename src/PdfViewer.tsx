@@ -8,6 +8,7 @@ import store from 'store';
 import scrollBarWidth from './api/scrollBarWidth';
 import useDynamicHeight from './api/useDynamicHeight';
 import Loading from './Loading';
+import { Viewer } from './Viewer';
 
 if (window.location.hostname !== 'tauri.localhost') {
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
@@ -18,14 +19,15 @@ type PdfViewerProps = {
   pos: number;
 };
 
-export default function PdfViewer(props: PdfViewerProps) {
+const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProps, ref) => {
   const { file, pos } = props;
   const [pages, setPages] = React.useState(0);
-  const ref = React.useRef<VariableSizeList>(null);
+  const [currentPos, setCurrentPos] = React.useState(0);
+  const listRef = React.useRef<VariableSizeList>(null);
   const {
-    estimatedHeight, updateEstimatedHeight, getRowHeight, setRowHeight, scrollToPos,
+    estimatedHeight, updateEstimatedHeight, getRowHeight, setRowHeight, scrollTo, scrollToPos,
   } = useDynamicHeight<PDFPageProxy>({
-    ref,
+    ref: listRef,
     pos,
     getObjectRowHeight: (pdf) => Math.floor(pdf.height),
     getObjectSize: (pdf) => ({
@@ -33,6 +35,12 @@ export default function PdfViewer(props: PdfViewerProps) {
       height: (pdf.originalHeight * 4) / 3,
     }),
   });
+
+  React.useImperativeHandle(ref, () => ({
+    currentPos,
+    maxPos: pages,
+    scrollTo,
+  }));
 
   React.useEffect(() => {
     if (pages > 0) {
@@ -61,7 +69,7 @@ export default function PdfViewer(props: PdfViewerProps) {
           }}
         >
           <VariableSizeList
-            ref={ref}
+            ref={listRef}
             width={width}
             height={height}
             itemCount={pages}
@@ -69,6 +77,7 @@ export default function PdfViewer(props: PdfViewerProps) {
             estimatedItemSize={estimatedHeight}
             onItemsRendered={({ visibleStartIndex }) => {
               if (pages > 0) {
+                setCurrentPos(visibleStartIndex);
                 store.set('pos', visibleStartIndex);
               }
             }}
@@ -89,4 +98,6 @@ export default function PdfViewer(props: PdfViewerProps) {
       )}
     </AutoResizer>
   );
-}
+});
+
+export default PdfViewer;

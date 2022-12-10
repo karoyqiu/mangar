@@ -18,7 +18,7 @@ export default function GotoDialog(props: GotoDialogProps) {
   const {
     open, onClose, maximum, current,
   } = props;
-  const [value, setValue] = React.useState(current ?? 1);
+  const [value, setValue] = React.useState((current ?? 0) + 1);
   const ref = React.useRef<HTMLInputElement>();
 
   const isAllowed = React.useCallback((values: NumberFormatValues) => {
@@ -54,7 +54,7 @@ export default function GotoDialog(props: GotoDialogProps) {
         <Button onClick={() => onClose()}>
           Cancel
         </Button>
-        <Button variant="contained" onClick={() => onClose(value)}>
+        <Button variant="contained" onClick={() => onClose(value - 1)}>
           OK
         </Button>
       </DialogActions>

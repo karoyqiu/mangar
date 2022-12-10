@@ -55,13 +55,17 @@ const useDynamicHeight = <T>(props: UseDynamicHeightProps<T>) => {
     ref.current?.resetAfterIndex(index);
   }, []);
 
-  const scrollToPos = React.useCallback(() => {
-    ref.current?.scrollToItem(pos, 'start');
+  const scrollTo = React.useCallback((value: number) => {
+    ref.current?.scrollToItem(value, 'start');
     const current = store.get('pos', 0) as number;
 
-    if (current !== pos) {
-      setTimeout(scrollToPos, 20);
+    if (current !== value) {
+      setTimeout(() => scrollTo(value), 20);
     }
+  }, [ref]);
+
+  const scrollToPos = React.useCallback(() => {
+    scrollTo(pos);
   }, [ref, pos]);
 
   return {
@@ -69,6 +73,7 @@ const useDynamicHeight = <T>(props: UseDynamicHeightProps<T>) => {
     updateEstimatedHeight,
     getRowHeight,
     setRowHeight,
+    scrollTo,
     scrollToPos,
   };
 };
