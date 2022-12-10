@@ -49,6 +49,11 @@ export default function GotoDialog(props: GotoDialogProps) {
           isAllowed={isAllowed}
           value={value}
           onValueChange={(values) => setValue(values.floatValue ?? 1)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              onClose(value - 1);
+            }
+          }}
         />
       </DialogContent>
       <DialogActions>
