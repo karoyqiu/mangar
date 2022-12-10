@@ -53,6 +53,7 @@ const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageView
           itemCount={images.length}
           itemSize={getRowHeight}
           estimatedItemSize={estimatedHeight}
+          overscanCount={2}
           onItemsRendered={({ visibleStartIndex }) => {
             if (images.length > 0) {
               currentPositon.set(visibleStartIndex);

@@ -74,6 +74,7 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
             itemCount={pages}
             itemSize={getRowHeight}
             estimatedItemSize={estimatedHeight}
+            overscanCount={2}
             onItemsRendered={({ visibleStartIndex }) => {
               if (pages > 0) {
                 currentPositon.set(visibleStartIndex);
