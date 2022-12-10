@@ -53,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.6.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:18.2.0"],\
+            ["react-number-format", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.1.2"],\
             ["react-pdf", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:6.2.0"],\
             ["react-virtualized-auto-sizer", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.0.7"],\
             ["react-window", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.8.8"],\
@@ -4175,6 +4176,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.6.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:18.2.0"],\
+            ["react-number-format", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.1.2"],\
             ["react-pdf", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:6.2.0"],\
             ["react-virtualized-auto-sizer", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.0.7"],\
             ["react-window", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.8.8"],\
@@ -4826,6 +4828,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-is-npm-18.2.0-0cc5edb910-e72d0ba81b.zip/node_modules/react-is/",\
           "packageDependencies": [\
             ["react-is", "npm:18.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-number-format", [\
+        ["npm:5.1.2", {\
+          "packageLocation": "./.yarn/cache/react-number-format-npm-5.1.2-f65cd111a3-30af5da086.zip/node_modules/react-number-format/",\
+          "packageDependencies": [\
+            ["react-number-format", "npm:5.1.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.1.2", {\
+          "packageLocation": "./.yarn/__virtual__/react-number-format-virtual-17876652f9/0/cache/react-number-format-npm-5.1.2-f65cd111a3-30af5da086.zip/node_modules/react-number-format/",\
+          "packageDependencies": [\
+            ["react-number-format", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.1.2"],\
+            ["@types/react", "npm:18.0.26"],\
+            ["@types/react-dom", "npm:18.0.9"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
