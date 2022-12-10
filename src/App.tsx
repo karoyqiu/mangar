@@ -1,9 +1,12 @@
+/* eslint-disable jsx-a11y/no-access-key */
 import ClearIcon from '@mui/icons-material/Clear';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import RestoreIcon from '@mui/icons-material/Restore';
+import ShortcutIcon from '@mui/icons-material/Shortcut';
 import WidthFullIcon from '@mui/icons-material/WidthFull';
 import CssBaseline from '@mui/material/CssBaseline';
 import SpeedDial from '@mui/material/SpeedDial';
@@ -16,12 +19,14 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
 import store from 'store';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import scrollBarWidth from './api/scrollBarWidth';
+import CurrentPosition from './CurrentPosition';
 import imageSize from './entities/imageSize';
 import windowSize from './entities/windowSize';
+import GotoDialog from './GotoDialog';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
-import scrollBarWidth from './api/scrollBarWidth';
+import { Viewer } from './Viewer';
 
 const FULL_SIZE_SCALE = 0.9 as const;
 
@@ -33,7 +38,9 @@ function App() {
   const [dir, setDir] = React.useState('');
   const [files, setFiles] = React.useState<string[]>([]);
   const [pos, setPos] = React.useState(0);
+  const [gotoOpen, setGotoOpen] = React.useState(false);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const viewerRef = React.useRef<Viewer>(null);
 
   const theme = React.useMemo(
     () => createTheme({
@@ -87,6 +94,10 @@ function App() {
       imageSize.set({ width: 1, height: 1 });
       setPdf(d);
     }
+  }, []);
+
+  const goTo = React.useCallback(() => {
+    setGotoOpen(true);
   }, []);
 
   const restore = React.useCallback(async () => {
@@ -169,43 +180,69 @@ function App() {
           FabProps={{ size: 'medium' }}
           sx={{
             position: 'absolute',
-            top: (thm) => thm.spacing(2),
-            left: (thm) => thm.spacing(2),
+            top: (thm) => thm.spacing(1),
+            left: (thm) => thm.spacing(1),
           }}
         >
           <SpeedDialAction
             icon={<FolderOpenIcon />}
             tooltipTitle="Open directory for images"
             onClick={openDir}
+            accessKey="d"
           />
           <SpeedDialAction
             icon={<PictureAsPdfIcon />}
             tooltipTitle="Open PDF file"
             onClick={openPdf}
+            accessKey="p"
           />
           <SpeedDialAction
             icon={<RestoreIcon />}
             tooltipTitle="Restore last session"
             onClick={restore}
+            accessKey="r"
+          />
+          <SpeedDialAction
+            icon={<ShortcutIcon />}
+            tooltipTitle="Go to page"
+            onClick={goTo}
+            accessKey="g"
+            FabProps={{
+              disabled: dir.length === 0,
+            }}
           />
           <SpeedDialAction
             icon={<WidthFullIcon />}
             tooltipTitle="Full width"
             onClick={fullWidth}
+            accessKey="w"
           />
           <SpeedDialAction
             icon={<FullscreenIcon />}
             tooltipTitle="Full size"
             onClick={fullSize}
+            accessKey="f"
           />
           <SpeedDialAction
             icon={<ClearIcon />}
             tooltipTitle="Clear"
             onClick={clear}
+            accessKey="c"
           />
         </SpeedDial>
-        {mode === 'DIR' && <ImageViewer dir={dir} images={files} pos={pos} />}
-        {mode === 'PDF' && <PdfViewer file={dir} pos={pos} />}
+        {mode === 'DIR' && <ImageViewer ref={viewerRef} dir={dir} images={files} pos={pos} />}
+        {mode === 'PDF' && <PdfViewer ref={viewerRef} file={dir} pos={pos} />}
+        <GotoDialog
+          open={gotoOpen}
+          onClose={(value) => {
+            setGotoOpen(false);
+
+            if (value) {
+              viewerRef.current?.scrollTo(value);
+            }
+          }}
+        />
+        <CurrentPosition />
       </React.StrictMode>
     </ThemeProvider>
   );

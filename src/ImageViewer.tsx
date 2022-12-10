@@ -4,6 +4,8 @@ import AutoResizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import store from 'store';
 import useDynamicHeight from './api/useDynamicHeight';
+import { currentPositon } from './entities/position';
+import { Viewer } from './Viewer';
 
 type ImageViewerProps = {
   dir: string;
@@ -11,13 +13,13 @@ type ImageViewerProps = {
   pos: number;
 };
 
-export default function ImageViewer(props: ImageViewerProps) {
+const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageViewerProps, ref) => {
   const { dir, images, pos } = props;
-  const ref = React.useRef<VariableSizeList>(null);
+  const listRef = React.useRef<VariableSizeList>(null);
   const {
-    estimatedHeight, updateEstimatedHeight, getRowHeight, setRowHeight, scrollToPos,
+    estimatedHeight, updateEstimatedHeight, getRowHeight, setRowHeight, scrollTo, scrollToPos,
   } = useDynamicHeight<HTMLImageElement>({
-    ref,
+    listRef,
     pos,
     getObjectRowHeight: (img) => {
       const ratio = img.naturalHeight / img.naturalWidth;
@@ -29,9 +31,13 @@ export default function ImageViewer(props: ImageViewerProps) {
     }),
   });
 
+  React.useImperativeHandle(ref, () => ({
+    scrollTo,
+  }));
+
   React.useEffect(() => {
     setTimeout(scrollToPos, 100);
-  }, [ref, pos]);
+  }, [listRef, pos]);
 
   if (images.length === 0) {
     return null;
@@ -41,14 +47,16 @@ export default function ImageViewer(props: ImageViewerProps) {
     <AutoResizer onResize={updateEstimatedHeight}>
       {({ width, height }) => (
         <VariableSizeList
-          ref={ref}
+          ref={listRef}
           width={width}
           height={height}
           itemCount={images.length}
           itemSize={getRowHeight}
           estimatedItemSize={estimatedHeight}
+          overscanCount={2}
           onItemsRendered={({ visibleStartIndex }) => {
             if (images.length > 0) {
+              currentPositon.set(visibleStartIndex);
               store.set('pos', visibleStartIndex);
             }
           }}
@@ -66,4 +74,6 @@ export default function ImageViewer(props: ImageViewerProps) {
       )}
     </AutoResizer>
   );
-}
+});
+
+export default ImageViewer;
