@@ -8,7 +8,7 @@ import { useEntity } from 'simpler-state';
 import store from 'store';
 import scrollBarWidth from './api/scrollBarWidth';
 import useDynamicHeight from './api/useDynamicHeight';
-import { currentPositon, maximumPosition } from './entities/position';
+import { currentPosition, maximumPosition } from './entities/position';
 import Loading from './Loading';
 import { Viewer } from './Viewer';
 
@@ -71,7 +71,7 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
             overscanCount={2}
             onItemsRendered={({ visibleStartIndex }) => {
               if (pages > 0) {
-                currentPositon.set(visibleStartIndex);
+                currentPosition.set(visibleStartIndex);
                 store.set('pos', visibleStartIndex);
               }
             }}

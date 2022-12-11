@@ -18,16 +18,17 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
+import { GlobalHotKeys } from "react-hotkeys";
 import store from 'store';
 import scrollBarWidth from './api/scrollBarWidth';
 import CurrentPosition from './CurrentPosition';
 import imageSize from './entities/imageSize';
+import { currentPosition, maximumPosition } from './entities/position';
 import windowSize from './entities/windowSize';
 import GotoDialog from './GotoDialog';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
 import { Viewer } from './Viewer';
-import { GlobalHotKeys, KeyMap } from "react-hotkeys";
 
 const FULL_SIZE_SCALE = 0.9 as const;
 
@@ -66,6 +67,7 @@ function App() {
     const f = await invoke<string[]>('read_images', { dir: d });
     store.set('mode', 'DIR');
     store.set('dir', d);
+    maximumPosition.set(f.length);
     setMode('DIR');
     setDir(d);
     setFiles(f);
@@ -178,6 +180,8 @@ function App() {
     store.remove('dir');
     store.remove('pos');
     store.remove('rowHeights');
+    currentPosition.set(0);
+    maximumPosition.set(0);
   }, []);
 
   const handlers = React.useMemo(() => ({
@@ -205,14 +209,6 @@ function App() {
       }
     }
   }), [dir]);
-
-  // useHotkeys('d', openDir, undefined, []);
-  // useHotkeys('f', openPdf, undefined, []);
-  // useHotkeys('r', restore, undefined, []);
-  // useHotkeys('g', goTo, { enabled: dir.length > 0 }, [dir]);
-  // useHotkeys('w', fullWidth, { enabled: dir.length > 0 }, [dir]);
-  // useHotkeys('s', fullSize, { enabled: dir.length > 0 }, [dir]);
-  // useHotkeys('x', clear, { enabled: dir.length > 0 }, [dir]);
 
   return (
     <ThemeProvider theme={theme}>

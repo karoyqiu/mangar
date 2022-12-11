@@ -1,9 +1,9 @@
 import Chip from '@mui/material/Chip';
 import { useEntity } from 'simpler-state';
-import { currentPositon, maximumPosition } from './entities/position';
+import { currentPosition, maximumPosition } from './entities/position';
 
 export default function CurrentPosition() {
-  const pos = useEntity(currentPositon);
+  const pos = useEntity(currentPosition);
   const max = useEntity(maximumPosition);
 
   return max > 0 ? (
