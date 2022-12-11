@@ -3294,6 +3294,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-hotkeys-hook: ^4.0.6
     react-number-format: ^5.1.2
     react-pdf: ^6.2.0
     react-virtualized-auto-sizer: ^1.0.7
@@ -3821,6 +3822,16 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-hotkeys-hook@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "react-hotkeys-hook@npm:4.0.6"
+  peerDependencies:
+    react: ">=16.8.1"
+    react-dom: ">=16.8.1"
+  checksum: edc2b8d626cbafcd362194f97966605f9f0c6516651593657aa6928fa1f60f3a8fdefcee27d5d18a5e73f9b550b9dbddab3baa474d5098e92f0ab6e35a0f7417
   languageName: node
   linkType: hard
 
