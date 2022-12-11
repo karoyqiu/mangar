@@ -3,6 +3,8 @@
     windows_subsystem = "windows"
 )]
 
+use actix_files::NamedFile;
+use actix_web::{web, App, HttpRequest, HttpServer, Result};
 use human_sort;
 use std::fs;
 use std::path::Path;
@@ -41,7 +43,32 @@ fn read_images(dir: &str) -> Vec<String> {
     files
 }
 
+async fn index(req: HttpRequest) -> Result<NamedFile> {
+    let path = req.match_info().query("filename");
+    let path = percent_encoding::percent_decode_str(&path)
+        .decode_utf8_lossy()
+        .to_string();
+    Ok(NamedFile::open(&path)?.disable_content_disposition())
+}
+
 fn main() {
+    std::thread::spawn(|| {
+        let rt = actix_web::rt::Runtime::new().unwrap();
+        let server = HttpServer::new(|| {
+            let cors = actix_cors::Cors::default()
+                .allow_any_origin()
+                .send_wildcard();
+            App::new()
+                .wrap(cors)
+                .route("/{filename:.*}", web::get().to(index))
+        })
+        .bind(("127.0.0.1", 18181))
+        .unwrap()
+        .run();
+
+        rt.block_on(server)
+    });
+
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![read_images])
         .plugin(tauri_plugin_window_state::Builder::default().build())
