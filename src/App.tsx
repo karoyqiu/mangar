@@ -18,7 +18,7 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { appWindow, currentMonitor, PhysicalSize } from '@tauri-apps/api/window';
 import React from 'react';
-import { GlobalHotKeys } from "react-hotkeys";
+import { GlobalHotKeys } from 'react-hotkeys';
 import store from 'store';
 import scrollBarWidth from './api/scrollBarWidth';
 import CurrentPosition from './CurrentPosition';
@@ -39,7 +39,7 @@ const keyMap = {
   GOTO: 'g',
   FULL_WIDTH: 'w',
   FULL_SIZE: 's',
-  CLEAR: 'x'
+  CLEAR: 'x',
 } as const;
 
 const modes = ['DIR', 'PDF'] as const;
@@ -193,21 +193,21 @@ function App() {
         goTo();
       }
     },
-    FULL_WIDTH: () => {
+    FULL_WIDTH: async () => {
       if (dir.length > 0) {
-        fullWidth();
+        await fullWidth();
       }
     },
-    FULL_SIZE: () => {
+    FULL_SIZE: async () => {
       if (dir.length > 0) {
-        fullSize();
+        await fullSize();
       }
     },
     CLEAR: () => {
       if (dir.length > 0) {
         clear();
       }
-    }
+    },
   }), [dir]);
 
   return (
