@@ -4,7 +4,7 @@
 )]
 
 use actix_files::NamedFile;
-use actix_web::{web, App, HttpRequest, HttpServer, Result};
+use actix_web::{http, web, App, HttpRequest, HttpServer, Result};
 use human_sort;
 use std::fs;
 use std::path::Path;
@@ -57,6 +57,7 @@ fn main() {
         let server = HttpServer::new(|| {
             let cors = actix_cors::Cors::default()
                 .allow_any_origin()
+                .expose_headers(vec![http::header::ACCEPT_RANGES, http::header::CONTENT_ENCODING])
                 .send_wildcard();
             App::new()
                 .wrap(cors)
