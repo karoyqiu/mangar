@@ -27,9 +27,19 @@ import GotoDialog from './GotoDialog';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
 import { Viewer } from './Viewer';
-import { useHotkeys } from 'react-hotkeys-hook'
+import { GlobalHotKeys, KeyMap } from "react-hotkeys";
 
 const FULL_SIZE_SCALE = 0.9 as const;
+
+const keyMap = {
+  OPEN_DIR: 'd',
+  OPEN_FILE: 'f',
+  RESTORE: 'r',
+  GOTO: 'g',
+  FULL_WIDTH: 'w',
+  FULL_SIZE: 's',
+  CLEAR: 'x'
+} as const;
 
 const modes = ['DIR', 'PDF'] as const;
 type Mode = typeof modes[number];
@@ -170,90 +180,118 @@ function App() {
     store.remove('rowHeights');
   }, []);
 
-  useHotkeys('d', openDir, undefined, []);
-  useHotkeys('f', openPdf, undefined, []);
-  useHotkeys('r', restore, undefined, []);
-  useHotkeys('g', goTo, { enabled: dir.length > 0 }, [dir]);
-  useHotkeys('w', fullWidth, { enabled: dir.length > 0 }, [dir]);
-  useHotkeys('s', fullSize, { enabled: dir.length > 0 }, [dir]);
-  useHotkeys('x', clear, { enabled: dir.length > 0 }, [dir]);
+  const handlers = React.useMemo(() => ({
+    OPEN_DIR: openDir,
+    OPEN_FILE: openPdf,
+    RESTORE: restore,
+    GOTO: () => {
+      if (dir.length > 0) {
+        goTo();
+      }
+    },
+    FULL_WIDTH: () => {
+      if (dir.length > 0) {
+        fullWidth();
+      }
+    },
+    FULL_SIZE: () => {
+      if (dir.length > 0) {
+        fullSize();
+      }
+    },
+    CLEAR: () => {
+      if (dir.length > 0) {
+        clear();
+      }
+    }
+  }), [dir]);
+
+  // useHotkeys('d', openDir, undefined, []);
+  // useHotkeys('f', openPdf, undefined, []);
+  // useHotkeys('r', restore, undefined, []);
+  // useHotkeys('g', goTo, { enabled: dir.length > 0 }, [dir]);
+  // useHotkeys('w', fullWidth, { enabled: dir.length > 0 }, [dir]);
+  // useHotkeys('s', fullSize, { enabled: dir.length > 0 }, [dir]);
+  // useHotkeys('x', clear, { enabled: dir.length > 0 }, [dir]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <React.StrictMode>
-        <SpeedDial
-          ariaLabel="Menu"
-          direction="down"
-          icon={<SpeedDialIcon icon={<MenuIcon />} openIcon={<KeyboardArrowDownIcon />} />}
-          FabProps={{ size: 'medium' }}
-          sx={{
-            position: 'absolute',
-            top: (thm) => thm.spacing(1),
-            left: (thm) => thm.spacing(1),
-          }}
-        >
-          <SpeedDialAction
-            icon={<FolderOpenIcon />}
-            tooltipTitle="Open directory for images (D)"
-            onClick={openDir}
-          />
-          <SpeedDialAction
-            icon={<PictureAsPdfIcon />}
-            tooltipTitle="Open PDF file (F)"
-            onClick={openPdf}
-          />
-          <SpeedDialAction
-            icon={<RestoreIcon />}
-            tooltipTitle="Restore last session (R)"
-            onClick={restore}
-          />
-          <SpeedDialAction
-            icon={<ShortcutIcon />}
-            tooltipTitle="Go to page (G)"
-            onClick={goTo}
-            FabProps={{
-              disabled: dir.length === 0,
+        <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
+          <SpeedDial
+            ariaLabel="Menu"
+            direction="down"
+            icon={<SpeedDialIcon icon={<MenuIcon />} openIcon={<KeyboardArrowDownIcon />} />}
+            FabProps={{ size: 'medium' }}
+            sx={{
+              position: 'absolute',
+              top: (thm) => thm.spacing(1),
+              left: (thm) => thm.spacing(1),
             }}
-          />
-          <SpeedDialAction
-            icon={<WidthFullIcon />}
-            tooltipTitle="Full width (W)"
-            onClick={fullWidth}
-            FabProps={{
-              disabled: dir.length === 0,
-            }}
-          />
-          <SpeedDialAction
-            icon={<FullscreenIcon />}
-            tooltipTitle="Full size (S)"
-            onClick={fullSize}
-            FabProps={{
-              disabled: dir.length === 0,
-            }}
-          />
-          <SpeedDialAction
-            icon={<ClearIcon />}
-            tooltipTitle="Clear (X)"
-            onClick={clear}
-            FabProps={{
-              disabled: dir.length === 0,
-            }}
-          />
-        </SpeedDial>
-        {mode === 'DIR' && <ImageViewer ref={viewerRef} dir={dir} images={files} pos={pos} />}
-        {mode === 'PDF' && <PdfViewer ref={viewerRef} file={dir} pos={pos} />}
-        <GotoDialog
-          open={gotoOpen}
-          onClose={(value) => {
-            setGotoOpen(false);
+          >
+            <SpeedDialAction
+              icon={<FolderOpenIcon />}
+              tooltipTitle="Open directory for images (D)"
+              onClick={openDir}
+            />
+            <SpeedDialAction
+              icon={<PictureAsPdfIcon />}
+              tooltipTitle="Open PDF file (F)"
+              onClick={openPdf}
+            />
+            <SpeedDialAction
+              icon={<RestoreIcon />}
+              tooltipTitle="Restore last session (R)"
+              onClick={restore}
+            />
+            <SpeedDialAction
+              icon={<ShortcutIcon />}
+              tooltipTitle="Go to page (G)"
+              onClick={goTo}
+              FabProps={{
+                disabled: dir.length === 0,
+              }}
+            />
+            <SpeedDialAction
+              icon={<WidthFullIcon />}
+              tooltipTitle="Full width (W)"
+              onClick={fullWidth}
+              FabProps={{
+                disabled: dir.length === 0,
+              }}
+            />
+            <SpeedDialAction
+              icon={<FullscreenIcon />}
+              tooltipTitle="Full size (S)"
+              onClick={fullSize}
+              FabProps={{
+                disabled: dir.length === 0,
+              }}
+            />
+            <SpeedDialAction
+              icon={<ClearIcon />}
+              tooltipTitle="Clear (X)"
+              onClick={clear}
+              FabProps={{
+                disabled: dir.length === 0,
+              }}
+            />
+          </SpeedDial>
+          {mode === 'DIR' && <ImageViewer ref={viewerRef} dir={dir} images={files} pos={pos} />}
+          {mode === 'PDF' && <PdfViewer ref={viewerRef} file={dir} pos={pos} />}
+          <GotoDialog
+            open={gotoOpen}
+            onClose={(value) => {
+              setGotoOpen(false);
 
-            if (value) {
-              viewerRef.current?.scrollTo(value);
-            }
-          }}
-        />
-        <CurrentPosition />
+              if (value) {
+                viewerRef.current?.scrollTo(value);
+              }
+            }}
+          />
+          <CurrentPosition />
+        </GlobalHotKeys>
       </React.StrictMode>
     </ThemeProvider>
   );

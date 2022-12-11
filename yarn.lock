@@ -3294,7 +3294,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     react: ^18.2.0
     react-dom: ^18.2.0
-    react-hotkeys-hook: ^4.0.6
+    react-hotkeys: ^2.0.0
     react-number-format: ^5.1.2
     react-pdf: ^6.2.0
     react-virtualized-auto-sizer: ^1.0.7
@@ -3788,7 +3788,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -3825,13 +3825,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hotkeys-hook@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "react-hotkeys-hook@npm:4.0.6"
+"react-hotkeys@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "react-hotkeys@npm:2.0.0"
+  dependencies:
+    prop-types: ^15.6.1
   peerDependencies:
-    react: ">=16.8.1"
-    react-dom: ">=16.8.1"
-  checksum: edc2b8d626cbafcd362194f97966605f9f0c6516651593657aa6928fa1f60f3a8fdefcee27d5d18a5e73f9b550b9dbddab3baa474d5098e92f0ab6e35a0f7417
+    react: ">= 0.14.0"
+  checksum: 1b269159cbae45d8712369a187fb708dc89d0227cd91bdaa83509587e10bd3c5409d8828c5ced7fe0636088de4d63248a6df16e92493d0d89ecaa59e661da5dd
   languageName: node
   linkType: hard
 
