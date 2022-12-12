@@ -1,6 +1,6 @@
 [package]
 name = "mangar"
-version = "1.2.0"
+version = "1.2.1"
 description = "Mangar"
 authors = ["karoyqiu@gmail.com"]
 license = ""
