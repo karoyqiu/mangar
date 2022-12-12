@@ -55,6 +55,8 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
             cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
             cMapPacked: true,
             standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts`,
+            disableStream: true,
+            disableAutoFetch: true,
           }}
           onLoadSuccess={({ numPages }) => {
             maximumPosition.set(numPages);
