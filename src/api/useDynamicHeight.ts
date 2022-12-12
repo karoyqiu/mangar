@@ -48,7 +48,7 @@ const useDynamicHeight = <T>(props: UseDynamicHeightProps<T>) => {
       imageSize.set(getObjectSize(obj));
 
       if (Object.keys(heights).length === 0) {
-        setEstimatedHeight(calcEstimatedHeight());
+        updateEstimatedHeight();
       }
     }
 

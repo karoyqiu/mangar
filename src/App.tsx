@@ -79,7 +79,7 @@ function App() {
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
       store.remove('rowHeights');
-      imageSize.set({ width: 1, height: 1 });
+      imageSize.set({ width: 1, height: 1000 });
       await setDirectory(d);
       setPos(0);
     }
@@ -104,7 +104,7 @@ function App() {
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
       store.remove('rowHeights');
-      imageSize.set({ width: 1, height: 1 });
+      imageSize.set({ width: 1, height: 1000 });
       setPdf(d);
       setPos(0);
     }
