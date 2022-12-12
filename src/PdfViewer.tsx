@@ -49,7 +49,7 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
     <AutoResizer onResize={updateEstimatedHeight}>
       {({ width, height }) => (
         <Document
-          file={convertFileSrc(file).replace('https://asset.localhost', 'http://localhost:18181')}
+          file={convertFileSrc(file, 'pdf')}
           loading={<Loading />}
           options={{
             cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
