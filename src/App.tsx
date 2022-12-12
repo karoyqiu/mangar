@@ -106,6 +106,7 @@ function App() {
       store.remove('rowHeights');
       imageSize.set({ width: 1, height: 1 });
       setPdf(d);
+      setPos(0);
     }
   }, []);
 
