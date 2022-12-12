@@ -1287,6 +1287,7 @@ name = "mangar"
 version = "1.2.0"
 dependencies = [
  "human-sort",
+ "percent-encoding",
  "serde",
  "serde_json",
  "tauri",

@@ -49,12 +49,14 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
     <AutoResizer onResize={updateEstimatedHeight}>
       {({ width, height }) => (
         <Document
-          file={convertFileSrc(file)}
+          file={convertFileSrc(file, 'pdf')}
           loading={<Loading />}
           options={{
             cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
             cMapPacked: true,
             standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts`,
+            disableStream: true,
+            disableAutoFetch: true,
           }}
           onLoadSuccess={({ numPages }) => {
             maximumPosition.set(numPages);
