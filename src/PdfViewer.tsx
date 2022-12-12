@@ -8,7 +8,7 @@ import { useEntity } from 'simpler-state';
 import store from 'store';
 import scrollBarWidth from './api/scrollBarWidth';
 import useDynamicHeight from './api/useDynamicHeight';
-import { currentPositon, maximumPosition } from './entities/position';
+import { currentPosition, maximumPosition } from './entities/position';
 import Loading from './Loading';
 import { Viewer } from './Viewer';
 
@@ -41,12 +41,6 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
     scrollTo,
   }));
 
-  React.useEffect(() => {
-    if (pages > 0) {
-      setTimeout(scrollToPos, 100);
-    }
-  }, [pages, pos]);
-
   if (file.length === 0) {
     return null;
   }
@@ -55,12 +49,14 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
     <AutoResizer onResize={updateEstimatedHeight}>
       {({ width, height }) => (
         <Document
-          file={convertFileSrc(file)}
+          file={convertFileSrc(file, 'pdf')}
           loading={<Loading />}
           options={{
             cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
             cMapPacked: true,
             standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts`,
+            disableStream: true,
+            disableAutoFetch: true,
           }}
           onLoadSuccess={({ numPages }) => {
             maximumPosition.set(numPages);
@@ -77,7 +73,7 @@ const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProp
             overscanCount={2}
             onItemsRendered={({ visibleStartIndex }) => {
               if (pages > 0) {
-                currentPositon.set(visibleStartIndex);
+                currentPosition.set(visibleStartIndex);
                 store.set('pos', visibleStartIndex);
               }
             }}

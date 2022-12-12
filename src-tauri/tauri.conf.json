@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "mangar",
-    "version": "1.2.0"
+    "version": "1.2.1"
   },
   "tauri": {
     "allowlist": {
@@ -59,7 +59,7 @@
       }
     },
     "security": {
-      "csp": "default-src 'self' asset: https://tauri.localhost https://asset.localhost https://unpkg.com; font-src 'self' data:; style-src 'self' 'unsafe-inline' data:; script-src 'self' blob: https://tauri.localhost https://unpkg.com"
+      "csp": "default-src 'self' asset: https://tauri.localhost https://asset.localhost https://pdf.localhost https://unpkg.com; font-src 'self' data:; style-src 'self' 'unsafe-inline' data:; script-src 'self' blob: https://tauri.localhost https://unpkg.com"
     },
     "updater": {
       "active": false

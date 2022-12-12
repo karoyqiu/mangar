@@ -1284,9 +1284,10 @@ dependencies = [
 
 [[package]]
 name = "mangar"
-version = "1.2.0"
+version = "1.2.1"
 dependencies = [
  "human-sort",
+ "percent-encoding",
  "serde",
  "serde_json",
  "tauri",

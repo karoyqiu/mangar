@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import React from 'react';
 import { NumberFormatValues, NumericFormat } from 'react-number-format';
 import { useEntity } from 'simpler-state';
-import { currentPositon, maximumPosition } from './entities/position';
+import { currentPosition, maximumPosition } from './entities/position';
 
 type GotoDialogProps = {
   open: boolean;
@@ -16,7 +16,7 @@ type GotoDialogProps = {
 
 export default function GotoDialog(props: GotoDialogProps) {
   const { open, onClose } = props;
-  const pos = useEntity(currentPositon);
+  const pos = useEntity(currentPosition);
   const max = useEntity(maximumPosition);
   const [value, setValue] = React.useState(pos + 1);
   const ref = React.useRef<HTMLInputElement>();

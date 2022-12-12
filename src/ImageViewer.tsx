@@ -4,7 +4,7 @@ import AutoResizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList } from 'react-window';
 import store from 'store';
 import useDynamicHeight from './api/useDynamicHeight';
-import { currentPositon } from './entities/position';
+import { currentPosition } from './entities/position';
 import { Viewer } from './Viewer';
 
 type ImageViewerProps = {
@@ -56,7 +56,7 @@ const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageView
           overscanCount={2}
           onItemsRendered={({ visibleStartIndex }) => {
             if (images.length > 0) {
-              currentPositon.set(visibleStartIndex);
+              currentPosition.set(visibleStartIndex);
               store.set('pos', visibleStartIndex);
             }
           }}
