@@ -44,7 +44,7 @@ const useDynamicHeight = <T>(props: UseDynamicHeightProps<T>) => {
       [index]: getObjectRowHeight(obj),
     });
 
-    if (imageSize.get().height <= 1) {
+    if (imageSize.get().width <= 1) {
       imageSize.set(getObjectSize(obj));
 
       if (Object.keys(heights).length === 0) {
