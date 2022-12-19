@@ -105,8 +105,14 @@ const TextViewer = React.forwardRef<Viewer, TextViewerProps>((props, ref) => {
                 <Typography
                   ref={rowRef}
                   align="justify"
-                  color="#aaa"
+                  color="#bbb"
                   width={theme.breakpoints.values.sm}
+                  lineHeight={2}
+                  sx={{
+                    textIndent: '2em',
+                    textRendering: 'optimizeLegibility',
+                    userSelect: 'none',
+                  }}
                 >
                   {lines[index]}
                 </Typography>
