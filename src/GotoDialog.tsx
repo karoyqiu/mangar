@@ -22,8 +22,13 @@ export default function GotoDialog(props: GotoDialogProps) {
   const ref = React.useRef<HTMLInputElement>();
 
   const isAllowed = React.useCallback((values: NumberFormatValues) => {
-    const { floatValue = 0 } = values;
-    return floatValue >= 1 && floatValue <= max;
+    const { formattedValue, floatValue } = values;
+
+    if (typeof floatValue === 'number') {
+      return floatValue >= 1 && floatValue <= max;
+    }
+
+    return formattedValue.length === 0;
   }, [max]);
 
   React.useEffect(() => {
@@ -44,6 +49,7 @@ export default function GotoDialog(props: GotoDialogProps) {
           inputRef={ref}
           helperText={`Maximum page is ${max}.`}
           autoFocus
+          autoComplete="off"
           decimalScale={0}
           isAllowed={isAllowed}
           value={value}

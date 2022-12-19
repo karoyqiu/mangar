@@ -35,6 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.17"],\
             ["@tauri-apps/api", "npm:1.2.0"],\
             ["@tauri-apps/cli", "npm:1.2.2"],\
+            ["@types/lodash", "npm:4.14.191"],\
             ["@types/react", "npm:18.0.26"],\
             ["@types/react-dom", "npm:18.0.9"],\
             ["@types/react-pdf", "npm:6.2.0"],\
@@ -51,6 +52,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:6.6.1"],\
             ["eslint-plugin-react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:7.31.11"],\
             ["eslint-plugin-react-hooks", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.6.0"],\
+            ["lodash", "npm:4.17.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:18.2.0"],\
             ["react-hotkeys", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:2.0.0"],\
@@ -61,6 +63,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["simpler-state", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0"],\
             ["store", "npm:2.0.12"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
+            ["use-debounce", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:9.0.2"],\
             ["vite", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.0.0"]\
           ],\
           "linkType": "SOFT"\
@@ -1432,6 +1435,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-json5-npm-0.0.29-f63a7916bd-e60b153664.zip/node_modules/@types/json5/",\
           "packageDependencies": [\
             ["@types/json5", "npm:0.0.29"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/lodash", [\
+        ["npm:4.14.191", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.191-67a04a969b-ba0d5434e1.zip/node_modules/@types/lodash/",\
+          "packageDependencies": [\
+            ["@types/lodash", "npm:4.14.191"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3982,6 +3994,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["lodash", [\
+        ["npm:4.17.21", {\
+          "packageLocation": "./.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/",\
+          "packageDependencies": [\
+            ["lodash", "npm:4.17.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["lodash.merge", [\
         ["npm:4.6.2", {\
           "packageLocation": "./.yarn/cache/lodash.merge-npm-4.6.2-77cb4416bf-ad580b4bdb.zip/node_modules/lodash.merge/",\
@@ -4083,6 +4104,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/material", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:5.10.17"],\
             ["@tauri-apps/api", "npm:1.2.0"],\
             ["@tauri-apps/cli", "npm:1.2.2"],\
+            ["@types/lodash", "npm:4.14.191"],\
             ["@types/react", "npm:18.0.26"],\
             ["@types/react-dom", "npm:18.0.9"],\
             ["@types/react-pdf", "npm:6.2.0"],\
@@ -4099,6 +4121,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:6.6.1"],\
             ["eslint-plugin-react", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:7.31.11"],\
             ["eslint-plugin-react-hooks", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.6.0"],\
+            ["lodash", "npm:4.17.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:18.2.0"],\
             ["react-hotkeys", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:2.0.0"],\
@@ -4109,6 +4132,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["simpler-state", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:1.2.0"],\
             ["store", "npm:2.0.12"],\
             ["typescript", "patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=d73830"],\
+            ["use-debounce", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:9.0.2"],\
             ["vite", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:4.0.0"]\
           ],\
           "linkType": "SOFT"\
@@ -5606,6 +5630,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["uri-js", "npm:4.4.1"],\
             ["punycode", "npm:2.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["use-debounce", [\
+        ["npm:9.0.2", {\
+          "packageLocation": "./.yarn/cache/use-debounce-npm-9.0.2-8b3a88c5d1-fb7d9a263e.zip/node_modules/use-debounce/",\
+          "packageDependencies": [\
+            ["use-debounce", "npm:9.0.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:9.0.2", {\
+          "packageLocation": "./.yarn/__virtual__/use-debounce-virtual-94cef75800/0/cache/use-debounce-npm-9.0.2-8b3a88c5d1-fb7d9a263e.zip/node_modules/use-debounce/",\
+          "packageDependencies": [\
+            ["use-debounce", "virtual:5d09439d9511f83081dc8ef353c29af180ccabafc6111bf51f432f8bc7d401e540d8c745781ce7d09e7b312dbc341053e4165a57c25fcf05abb25d053d067bd2#npm:9.0.2"],\
+            ["@types/react", "npm:18.0.26"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
