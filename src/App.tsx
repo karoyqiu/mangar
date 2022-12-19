@@ -295,7 +295,7 @@ function App() {
             onClose={(value) => {
               setGotoOpen(false);
 
-              if (value) {
+              if (typeof value === 'number') {
                 viewerRef.current?.scrollTo(value);
               }
             }}

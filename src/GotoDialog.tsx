@@ -22,8 +22,13 @@ export default function GotoDialog(props: GotoDialogProps) {
   const ref = React.useRef<HTMLInputElement>();
 
   const isAllowed = React.useCallback((values: NumberFormatValues) => {
-    const { floatValue = 0 } = values;
-    return floatValue >= 1 && floatValue <= max;
+    const { formattedValue, floatValue } = values;
+
+    if (typeof floatValue === 'number') {
+      return floatValue >= 1 && floatValue <= max;
+    }
+
+    return formattedValue.length === 0;
   }, [max]);
 
   React.useEffect(() => {
