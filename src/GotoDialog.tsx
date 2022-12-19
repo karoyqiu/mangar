@@ -44,6 +44,7 @@ export default function GotoDialog(props: GotoDialogProps) {
           inputRef={ref}
           helperText={`Maximum page is ${max}.`}
           autoFocus
+          autoComplete="off"
           decimalScale={0}
           isAllowed={isAllowed}
           value={value}

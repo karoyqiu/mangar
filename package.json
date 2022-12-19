@@ -26,7 +26,8 @@
     "react-virtualized-auto-sizer": "^1.0.7",
     "react-window": "^1.8.8",
     "simpler-state": "^1.2.0",
-    "store": "^2.0.12"
+    "store": "^2.0.12",
+    "use-debounce": "^9.0.2"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.2",

@@ -3281,6 +3281,7 @@ __metadata:
     simpler-state: ^1.2.0
     store: ^2.0.12
     typescript: ^4.9.3
+    use-debounce: ^9.0.2
     vite: ^4.0.0
   languageName: unknown
   linkType: soft
@@ -4513,6 +4514,15 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"use-debounce@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "use-debounce@npm:9.0.2"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: fb7d9a263e6d5e9d246118b90f11298156b7973aaff315d70bfeb154de5fb8c8bcdde3058da2f57d40a014eec6545c3e3a00cb4dbb2d9323adf2a169f8a492bb
   languageName: node
   linkType: hard
 
