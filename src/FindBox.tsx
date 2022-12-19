@@ -35,6 +35,10 @@ export default function FindBox(props: FindBoxProps) {
       sx={{
         position: 'absolute',
         bottom: 0,
+        transition: 'opacity 0.25s',
+        '&:not(:focus-within)': {
+          opacity: 0.5,
+        },
       }}
     >
       <TextField

@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { convertFileSrc } from '@tauri-apps/api/tauri';
 import remove from 'lodash/remove';
+import sortedIndex from 'lodash/sortedIndex';
 import React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import AutoResizer from 'react-virtualized-auto-sizer';
@@ -99,7 +100,6 @@ const TextViewer = React.forwardRef<Viewer, TextViewerProps>((props, ref) => {
   }));
 
   const findTo = (index: number) => {
-    console.log('Find to', index, occurance[index]);
     scrollTo(occurance[index]);
     setCurrent(index);
   };
@@ -144,12 +144,17 @@ const TextViewer = React.forwardRef<Viewer, TextViewerProps>((props, ref) => {
       findHanle.current = 0;
       setOccurance(result);
       setFinding(false);
-      findTo(0);
+
+      if (result.length > 0) {
+        const nearest = sortedIndex(result, currentPosition.get());
+        console.log('Nearest', nearest, result[nearest]);
+        setCurrent(nearest);
+        scrollTo(result[nearest]);
+      }
     }
   };
 
   const find = (text: string) => {
-    console.log('Finding', text);
     setFindText(text);
 
     if (findHanle.current) {
