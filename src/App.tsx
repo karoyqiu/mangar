@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/no-access-key */
 import ClearIcon from '@mui/icons-material/Clear';
+import FileOpenIcon from '@mui/icons-material/FileOpen';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuIcon from '@mui/icons-material/Menu';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import RestoreIcon from '@mui/icons-material/Restore';
 import ShortcutIcon from '@mui/icons-material/Shortcut';
 import WidthFullIcon from '@mui/icons-material/WidthFull';
@@ -28,6 +28,7 @@ import windowSize from './entities/windowSize';
 import GotoDialog from './GotoDialog';
 import ImageViewer from './ImageViewer';
 import PdfViewer from './PdfViewer';
+import TextViewer from './TextViewer';
 import { Viewer } from './Viewer';
 
 const FULL_SIZE_SCALE = 0.9 as const;
@@ -42,7 +43,7 @@ const keyMap = {
   CLEAR: 'x',
 } as const;
 
-const modes = ['DIR', 'PDF'] as const;
+const modes = ['DIR', 'PDF', 'TXT'] as const;
 type Mode = typeof modes[number];
 
 function App() {
@@ -79,33 +80,44 @@ function App() {
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
       store.remove('rowHeights');
-      imageSize.set({ width: 1, height: 1 });
+      imageSize.set({ width: 1, height: 1000 });
       await setDirectory(d);
       setPos(0);
     }
   }, []);
 
-  const setPdf = React.useCallback((d: string) => {
-    store.set('mode', 'PDF');
+  const setFile = React.useCallback((d: string) => {
+    const m = d.toLowerCase().endsWith('.pdf') ? 'PDF' : 'TXT';
+    store.set('mode', m);
     store.set('dir', d);
-    setMode('PDF');
+    setMode(m);
     setDir(d);
     setFiles([]);
   }, []);
 
-  const openPdf = React.useCallback(async () => {
+  const openFile = React.useCallback(async () => {
     const selected = await open({
-      filters: [{
-        name: 'PDF files',
-        extensions: ['pdf'],
-      }],
+      filters: [
+        {
+          name: 'All supported files',
+          extensions: ['pdf', 'txt'],
+        },
+        {
+          name: 'PDF files',
+          extensions: ['pdf'],
+        },
+        {
+          name: 'Text files',
+          extensions: ['txt'],
+        },
+      ],
     });
 
     if (selected) {
       const d = Array.isArray(selected) ? selected[0] : selected;
       store.remove('rowHeights');
-      imageSize.set({ width: 1, height: 1 });
-      setPdf(d);
+      imageSize.set({ width: 1, height: 1000 });
+      setFile(d);
       setPos(0);
     }
   }, []);
@@ -124,7 +136,7 @@ function App() {
       if (m === 'DIR') {
         await setDirectory(d);
       } else {
-        setPdf(d);
+        setFile(d);
       }
 
       setPos(n);
@@ -187,7 +199,7 @@ function App() {
 
   const handlers = React.useMemo(() => ({
     OPEN_DIR: openDir,
-    OPEN_FILE: openPdf,
+    OPEN_FILE: openFile,
     RESTORE: restore,
     GOTO: () => {
       if (dir.length > 0) {
@@ -233,9 +245,9 @@ function App() {
               onClick={openDir}
             />
             <SpeedDialAction
-              icon={<PictureAsPdfIcon />}
-              tooltipTitle="Open PDF file (F)"
-              onClick={openPdf}
+              icon={<FileOpenIcon />}
+              tooltipTitle="Open file (F)"
+              onClick={openFile}
             />
             <SpeedDialAction
               icon={<RestoreIcon />}
@@ -277,12 +289,13 @@ function App() {
           </SpeedDial>
           {mode === 'DIR' && <ImageViewer ref={viewerRef} dir={dir} images={files} pos={pos} />}
           {mode === 'PDF' && <PdfViewer ref={viewerRef} file={dir} pos={pos} />}
+          {mode === 'TXT' && <TextViewer ref={viewerRef} file={dir} pos={pos} />}
           <GotoDialog
             open={gotoOpen}
             onClose={(value) => {
               setGotoOpen(false);
 
-              if (value) {
+              if (typeof value === 'number') {
                 viewerRef.current?.scrollTo(value);
               }
             }}
