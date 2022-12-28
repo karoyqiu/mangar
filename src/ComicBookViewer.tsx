@@ -9,12 +9,12 @@ import { currentPosition, maximumPosition } from './entities/position';
 import Loading from './Loading';
 import { Viewer } from './Viewer';
 
-type ImageViewerProps = {
+type ComicBookViewerProps = {
   file: string;
   pos: number;
 };
 
-const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageViewerProps, ref) => {
+const ComicBookViewer = React.forwardRef<Viewer, ComicBookViewerProps>((props, ref) => {
   const { file, pos } = props;
   const [loading, setLoading] = React.useState(true);
   const pages = useEntity(maximumPosition);
@@ -100,4 +100,4 @@ const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageView
   );
 });
 
-export default ImageViewer;
+export default ComicBookViewer;

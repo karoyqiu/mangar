@@ -13,7 +13,7 @@ type ImageViewerProps = {
   pos: number;
 };
 
-const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props: ImageViewerProps, ref) => {
+const ImageViewer = React.forwardRef<Viewer, ImageViewerProps>((props, ref) => {
   const { dir, images, pos } = props;
   const listRef = React.useRef<VariableSizeList>(null);
   const {

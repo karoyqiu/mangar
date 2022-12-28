@@ -21,7 +21,7 @@ type PdfViewerProps = {
   pos: number;
 };
 
-const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props: PdfViewerProps, ref) => {
+const PdfViewer = React.forwardRef<Viewer, PdfViewerProps>((props, ref) => {
   const { file, pos } = props;
   const pages = useEntity(maximumPosition);
   const listRef = React.useRef<VariableSizeList>(null);
