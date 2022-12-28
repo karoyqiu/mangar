@@ -21,6 +21,7 @@ import React from 'react';
 import { GlobalHotKeys } from 'react-hotkeys';
 import store from 'store';
 import scrollBarWidth from './api/scrollBarWidth';
+import ComicBookViewer from './ComicBookViewer';
 import CurrentPosition from './CurrentPosition';
 import imageSize from './entities/imageSize';
 import { currentPosition, maximumPosition } from './entities/position';
@@ -43,8 +44,22 @@ const keyMap = {
   CLEAR: 'x',
 } as const;
 
-const modes = ['DIR', 'PDF', 'TXT'] as const;
+const modes = ['DIR', 'PDF', 'TXT', 'COMIC'] as const;
 type Mode = typeof modes[number];
+
+const guessMode = (filename: string) => {
+  const low = filename.slice(-4).toLowerCase();
+
+  switch (low) {
+    case '.pdf':
+      return 'PDF';
+    case '.cbz':
+    case '.cbr':
+      return 'COMIC';
+    default:
+      return 'TXT';
+  }
+};
 
 function App() {
   const [mode, setMode] = React.useState<Mode>('DIR');
@@ -87,7 +102,7 @@ function App() {
   }, []);
 
   const setFile = React.useCallback((d: string) => {
-    const m = d.toLowerCase().endsWith('.pdf') ? 'PDF' : 'TXT';
+    const m = guessMode(d);
     store.set('mode', m);
     store.set('dir', d);
     setMode(m);
@@ -100,7 +115,7 @@ function App() {
       filters: [
         {
           name: 'All supported files',
-          extensions: ['pdf', 'txt'],
+          extensions: ['pdf', 'txt', 'cbz'],
         },
         {
           name: 'PDF files',
@@ -109,6 +124,10 @@ function App() {
         {
           name: 'Text files',
           extensions: ['txt'],
+        },
+        {
+          name: 'Comic books',
+          extensions: ['cbz'],
         },
       ],
     });
@@ -290,6 +309,7 @@ function App() {
           {mode === 'DIR' && <ImageViewer ref={viewerRef} dir={dir} images={files} pos={pos} />}
           {mode === 'PDF' && <PdfViewer ref={viewerRef} file={dir} pos={pos} />}
           {mode === 'TXT' && <TextViewer ref={viewerRef} file={dir} pos={pos} />}
+          {mode === 'COMIC' && <ComicBookViewer ref={viewerRef} file={dir} pos={pos} />}
           <GotoDialog
             open={gotoOpen}
             onClose={(value) => {

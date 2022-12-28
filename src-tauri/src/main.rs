@@ -119,6 +119,43 @@ fn main() {
                 .status(status_code)
                 .body(buf)
         })
+        .register_uri_scheme_protocol("zip", move |_app, request| {
+            // prepare our response
+            let response = ResponseBuilder::new().header("Access-Control-Allow-Origin", "*");
+
+            // get the file path
+            let path = request.uri().strip_prefix("zip://localhost/").unwrap();
+            let filepath;
+            let index;
+
+            if let Some(pos) = path.rfind('?') {
+                let query = &path[pos + 1..];
+                filepath = &path[0..pos];
+                index = query.parse().unwrap();
+            } else {
+                filepath = &path;
+                index = std::usize::MAX;
+            }
+
+            let path = percent_encoding::percent_decode(filepath.as_bytes())
+                .decode_utf8_lossy()
+                .to_string();
+            println!("Path: {}", &path);
+            let file = fs::File::open(path).unwrap();
+            let mut zip = zip::ZipArchive::new(file).unwrap();
+            let mut body: Vec<u8> = Vec::new();
+            println!("Index: {}", index);
+
+            if index == std::usize::MAX {
+                body = zip.len().to_string().as_bytes().to_vec();
+            } else {
+                let mut file = zip.by_index(index).unwrap();
+                file.read_to_end(&mut body).unwrap();
+            }
+
+            println!("Done: {}", &body.len());
+            response.status(200).body(body)
+        })
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
