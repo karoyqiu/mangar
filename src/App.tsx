@@ -115,7 +115,7 @@ function App() {
       filters: [
         {
           name: 'All supported files',
-          extensions: ['pdf', 'txt', 'cbz', 'cbr'],
+          extensions: ['pdf', 'txt', 'cbz'],
         },
         {
           name: 'PDF files',
@@ -127,7 +127,7 @@ function App() {
         },
         {
           name: 'Comic books',
-          extensions: ['cbz', 'cbr'],
+          extensions: ['cbz'],
         },
       ],
     });

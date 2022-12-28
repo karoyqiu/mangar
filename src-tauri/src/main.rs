@@ -129,7 +129,6 @@ fn main() {
             let index;
 
             if let Some(pos) = path.rfind('?') {
-                println!("Pos: {}", pos);
                 let query = &path[pos + 1..];
                 filepath = &path[0..pos];
                 index = query.parse().unwrap();
@@ -141,18 +140,20 @@ fn main() {
             let path = percent_encoding::percent_decode(filepath.as_bytes())
                 .decode_utf8_lossy()
                 .to_string();
+            println!("Path: {}", &path);
             let file = fs::File::open(path).unwrap();
             let mut zip = zip::ZipArchive::new(file).unwrap();
             let mut body: Vec<u8> = Vec::new();
+            println!("Index: {}", index);
 
             if index == std::usize::MAX {
-                println!("Len: {}", zip.len());
                 body = zip.len().to_string().as_bytes().to_vec();
             } else {
                 let mut file = zip.by_index(index).unwrap();
                 file.read_to_end(&mut body).unwrap();
             }
 
+            println!("Done: {}", &body.len());
             response.status(200).body(body)
         })
         .plugin(tauri_plugin_window_state::Builder::default().build())
