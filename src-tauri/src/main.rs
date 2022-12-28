@@ -140,11 +140,9 @@ fn main() {
             let path = percent_encoding::percent_decode(filepath.as_bytes())
                 .decode_utf8_lossy()
                 .to_string();
-            println!("Path: {}", &path);
             let file = fs::File::open(path).unwrap();
             let mut zip = zip::ZipArchive::new(file).unwrap();
             let mut body: Vec<u8> = Vec::new();
-            println!("Index: {}", index);
 
             if index == std::usize::MAX {
                 body = zip.len().to_string().as_bytes().to_vec();
@@ -153,7 +151,6 @@ fn main() {
                 file.read_to_end(&mut body).unwrap();
             }
 
-            println!("Done: {}", &body.len());
             response.status(200).body(body)
         })
         .plugin(tauri_plugin_window_state::Builder::default().build())
